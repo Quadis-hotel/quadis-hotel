@@ -1,0 +1,48 @@
+SEND THIS ONE ALONE. Message text only — copy from the line below straight
+into WhatsApp, nothing to edit.
+
+This is the ONLY thing blocking go-live. Send it before anything else; the
+Razorpay and PMS questions can wait a day, this cannot, because it has a
+waiting-on-someone-else delay built into it.
+
+Two reasons it is written this way:
+  - It gives her a route that does NOT depend on the old designer. She has been
+    chasing him since 27 Jul with no result. She is theserverindia's customer;
+    he is a middleman. Option 2 is the fast path.
+  - It leads with the email reassurance. Her zone carries her Google MX, and
+    "DNS change" to a non-technical owner sounds like "my email might break".
+    If she worries about that she will stall, so it is answered before she asks.
+
+The IP is safe to hand over — 13.234.85.127 is the Elastic IP on her own AWS
+account and it is public by nature.
+
+Do NOT add the Razorpay or PMS questions to this message. She answers the last
+item and skips the rest — that has happened on round 1 and again on 29 Jul.
+
+---
+
+Website ka kaam ho gaya hai, live karne ke liye bas ek cheez ruki hui hai.
+
+Aapka domain GoDaddy pe hai, par uski website wali setting theserverindia ke
+panel me padi hai. Wahan sirf *ek line* badalni hai. Us ek line se nayi website
+quadishotels.com pe aa jayegi.
+
+*Aapki email ko kuch nahi hoga.* Mail Google pe chalti hai aur uski setting
+alag hoti hai — main use haath hi nahi lagaunga. Sirf website wali line
+badlegi. adminweb, blog, webmail sab waise ke waise chalte rahenge.
+
+Do me se jo aasan lage wo kar dijiye:
+
+*1.* Purane designer se theserverindia ke panel ka login mangwa lijiye.
+
+*2.* Ya seedha theserverindia ko aap khud likh dijiye. Account aapka hai,
+designer ke bina bhi wo kar denge. Unko bas itna bhej dijiye:
+
+"Domain quadishotels.com mera hai. Panel ka login reset kar dijiye. Ya phir
+quadishotels.com ka A record 13.234.85.127 kar dijiye. Baaki kuch mat badliye,
+email ke records waise hi rehne dijiye."
+
+Option 2 zyada jaldi hota hai, kyunki usme kisi teesre ka intezaar nahi karna
+padta.
+
+Bata dijiye aap in me se kya kar rahe hain?

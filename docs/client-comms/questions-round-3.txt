@@ -1,0 +1,185 @@
+=============================================================
+PART A - SEND TO CLIENT
+Agent Name : WhatsAppBhondu
+=============================================================
+
+Send MESSAGE 1 first, on its own. Then 2. Then 3 and 4 together.
+
+Do not send all of it at once. Last time the long list came back with half
+the answers, and the skipped ones were the ones blocking launch.
+
+
+-------------------------------------------------------------
+MESSAGE 1 - send alone, first
+-------------------------------------------------------------
+
+Ek zaroori baat. Aapne GoDaddy aur Razorpay ka password WhatsApp pe bheja tha.
+WhatsApp pe password chat mein permanently save reh jaata hai, aur jiske paas
+bhi phone jaaye usko sab mil jaata hai.
+
+Razorpay se paisa nikalta hai aur GoDaddy se poori website kisi aur jagah
+point ho sakti hai. To please dono ke password abhi change kar dijiye aur
+2-factor authentication (OTP wala) on kar dijiye.
+
+Mujhe password chahiye hi nahi. Razorpay mein "Team" option hota hai, waha se
+aap mujhe member add kar dijiye - mujhe utna hi access milega jitna kaam ke
+liye chahiye, aur aap jab chaaho hata sakte ho. GoDaddy mein bhi delegate
+access ka option hai.
+
+Aage se koi bhi password mat bhejiye, chahe kisi ko bhi.
+
+
+-------------------------------------------------------------
+MESSAGE 2 - pricing, ye abhi bhi atka hua hai
+-------------------------------------------------------------
+
+Room count aur rate aapne clear kar diya tha, wo sab laga diya hai - ab total
+197 keys bilkul aapki sheet se match kar raha hai. Bas ek cheez baaki hai,
+teesre person ka charge. Iske baare mein aapse teen jagah teen alag baat aayi
+hai, isliye seedha example se pooch raha hoon.
+
+1. 2,000 wala deluxe room hai, do log the, ab teesra ADULT aa gaya.
+   Us raat ka total kitna lagega?
+
+   30% wala rule maane to 2,600
+   Rate sheet pe likha "EXTRA ADULT 500" maane to 2,500
+
+   Aapne kaha tha "Excel ki pricing ke hisab se chalo" - usme rate aur room
+   count clear ho gaya, par teesre person wali line confirm nahi hai.
+   Abhi maine 30% laga rakha hai.
+
+2. Wahi room, teesra BACHA hai bade ke bajay. Total kitna?
+   Bache ka charge lagta hai ya free?
+   Agar charge hai to kis umar se?
+
+   Abhi bache ka charge nahi lag raha. Aapne pehle kaha tha "if it's child
+   then no", par sheet pe "CHILD 250" likha hai. Ek baar confirm kar dijiye.
+
+
+-------------------------------------------------------------
+MESSAGE 3 - hosting aur database
+-------------------------------------------------------------
+
+1. theserverindia.com ka panel login - purane designer se mila kya?
+   Jab tak wo nahi milta, website switch nahi kar sakte.
+
+   Ek baat batani thi: aapka domain GoDaddy pe hai, par uske nameserver
+   theserverindia pe point kar rahe hain. Matlab email ki setting (MX record)
+   bhi wahi rakhi hai, GoDaddy pe nahi. Isliye us panel ka login chahiye.
+   Usse hum sirf website ka record badlenge, email ko haath nahi lagayenge.
+   Aapka mail Google pe hai, wo safe rahega.
+
+2. SUPERSEDED 30 Jul - do not send this item. The cost answer now goes out as
+   message A of round 4, and the file to send is
+   docs/client-comms/message-a-server-cost-SEND.txt, at ~Rs 3,500 a month.
+
+   (NOT message-server-cost.txt, and NOT Rs 1,500-2,000. Both are superseded -
+   that figure was priced on t3.small and the box is t3.medium. AGENTS.md 4a.)
+
+   The 2,500-3,500 figure below was priced on the t3.micro shape that wedged
+   the API for 30 minutes on 29 Jul (AGENTS.md incident 6), and which
+   docs/aws-account-migration.md decision 2 rules out. Priced honestly off the
+   AWS pricing API for ap-south-1, the same architecture on t3.small is about
+   3,600 a month single-instance, or 5,400 with the load balancer Beanstalk
+   gives you by default. Quoting the old number would have been low by a third
+   or a half, discovered after she had already said yes.
+
+   -- original text, kept as the record --
+   AWS pe testing ke liye maine sab laga diya hai aur chal raha hai. Ab jab
+   asli website live karni hai to uska kharcha lagbhag 2,500-3,500 rupaye
+   mahina aayega (server + database + backup). Aapne "sabse kam price" kaha
+   tha - ye usi hisab se sabse chhota setup hai. Confirm kar dijiye.
+
+3. Database ke liye ek cheez poochni thi. Guest ki booking, naam, phone
+   number - ye sab database mein store hoga. Uska daily backup rakhna hai
+   ya nahi? Backup rakhne se thoda kharcha badhta hai, par agar kabhi kuch
+   kharab hua to data wapas aa jaata hai. Meri salaah hai rakh lijiye.
+
+4. Purani website pe abhi tak kitni booking aayi hai? Wo purana data nayi
+   website mein daalna hai kya, ya sab naya shuru karein?
+
+
+-------------------------------------------------------------
+MESSAGE 4 - photos aur PMS
+-------------------------------------------------------------
+
+1. PMS wali baat aapko revenue sir se confirm karni thi. Sabse zaroori sawaal
+   ye hai - "Book Now" dabane ke baad guest kahan jaayega?
+
+   (a) Hamari hi website pe rukega, payment wahi karega, bill bhi hamara
+   (b) PMS ke apne booking page pe chala jaayega, payment wahin hoga
+
+   Ye pehle decide karna zaroori hai. (b) chuna to booking screen, payment
+   aur GST bill ka jo kaam ho chuka hai wo istemaal hi nahi hoga.
+
+   Saath mein ye bhi pooch lijiye: PMS ka naam kya hai, unke plan mein API
+   access hai ya nahi, aur channel manager hai ya nahi (MakeMyTrip ka
+   inventory sync karne ke liye wo alag se lagta hai).
+
+2. Photos ke liye ek account chahiye - Cloudinary. Isse aap khud admin panel
+   se hotel ki photo badal paoge, mujhe bolne ki zaroorat nahi padegi.
+   Free plan mein aapke nau hotel aaram se aa jayenge.
+
+   Account aapki company ke naam pe banega, taaki photos aur billing aapke
+   paas rahe. Main bata dunga kaise banana hai, 5 minute ka kaam hai.
+
+3. Ye teen cheezein abhi bhi pending hain
+   - Har hotel ki apni alag photos (abhi kuch hotel pe dusre hotel ki
+     photo lag rahi hai)
+   - Noida city ka ek photo (abhi building ka photo laga hai)
+   - "Quadis Select" wali image badi size mein. Jo bheji thi wo bahut
+     chhoti hai, phone pe dhundhli dikhti hai
+
+
+=============================================================
+PART B - QUESTIONS FOR YOU (DIVYANSH), NOT FOR THE CLIENT
+=============================================================
+
+Blocking me right now
+---------------------
+
+1. The backend is still crash-looping on the old bundle. The TLS fix is
+   committed (d33d964) but not deployed. Is the other agent redeploying it,
+   or do you want me to? If me, I need the permission rule in Q2.
+
+2. Permission rule - yes or no? Without it I stop dead every few AWS
+   commands and hand you a line to paste. Details below.
+
+3. Save these two secrets somewhere permanent. They exist only inside the
+   Beanstalk config right now, and if that environment is ever rebuilt they
+   are gone for good:
+   - ADMIN_PASSWORD  (generated during the deploy, printed in that run)
+   - RDS master password (generated during the reset)
+   Put them in a password manager, not in this repo.
+
+Decisions I need from you
+-------------------------
+
+4. Cloudinary in whose name - yours or the client's? My recommendation is
+   the client's, same reasoning as AWS and Razorpay. If it is in your name
+   you are funding their storage and you become a permanent dependency.
+   Asked as message 4 item 2 above, assuming you agree.
+
+5. Push to origin? main is now 9 commits ahead and nothing is pushed.
+
+6. The three stale quadis-hotels-frontend-* buckets from 25-26 July are
+   still there, two publicly readable. Delete them?
+
+7. Production hosting shape. Right now it is Beanstalk EC2 + RDS, roughly
+   2,500-3,500 a month. Adding CloudFront would fix three things at once:
+   HTTPS, the deep-link 404s, and image delivery cost. Its free tier covers
+   this traffic. Want me to plan that, or keep it minimal for now?
+
+Things I will do without asking unless you say otherwise
+--------------------------------------------------------
+
+8. Lock the RDS security group down to the Beanstalk group. It is currently
+   open to 0.0.0.0/0 on port 5432 with a publicly reachable endpoint - the
+   only thing protecting guest names and phone numbers is the password.
+
+9. Ship Amazon's RDS root CA so the database connection verifies the server
+   certificate instead of just encrypting. Right now it is encrypted but a
+   man-in-the-middle is not ruled out.
+
+10. Add a /cancellation-policy page. The client sent the full text and
+    Razorpay requires it visible on the site before approving the account.

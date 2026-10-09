@@ -1,0 +1,113 @@
+=============================================================
+SEPARATE MESSAGE - photos from the admin panel, and where to
+                   store them (Cloudinary vs Amazon S3)
+=============================================================
+
+Send on its own. It is a choice, not a task list.
+
+FOR YOU BEFORE SENDING
+----------------------
+
+Photo editing is being built right now. It is NOT live yet - do not tell them
+they can change photos today.
+
+The code is written against a storage "adapter", so whichever they pick is a
+config change, not a rewrite. If they do not reply within a few days, we go
+with S3, because that account already exists and nothing is blocked.
+
+My own recommendation is Cloudinary, and the reason is bandwidth cost, not
+features - see the note at the bottom.
+
+
+-------------------------------------------------------------
+THE MESSAGE
+-------------------------------------------------------------
+
+Admin panel ke baare mein update.
+
+ABHI AAP KYA KHUD BADAL SAKTE HO
+
+Ye sab aap admin panel se khud kar sakte ho, mujhe bole bina:
+
+  - Har hotel ka rate, aur category ka extra rate (super deluxe, royal)
+  - Breakfast aur all-meals ka charge
+  - Kitne room hain har category mein
+  - Koi room "Sold Out" karna ho to ek click
+  - Weekend ka extra charge, teesre person ka charge, bache ki umar
+  - Hotel ka naam, address, phone, WhatsApp, email
+  - Website ke kuch text
+
+Rate ya availability badalni ho to mujhe message karne ki zaroorat nahi.
+
+PHOTO WALA KAAM AB BAN RAHA HAI
+
+Abhi hotel ki photo aap khud nahi badal sakte - wo mujhe website ke andar
+daalni padti hai. Ye theek karne ka kaam maine shuru kar diya hai.
+
+Ban jane ke baad:
+
+  - Har hotel ke saamne "Photos" ka option aayega
+  - Phone ya laptop se seedha photo upload
+  - Thodi der mein website pe live
+  - Purani photo hatani ho to ek click
+  - Photo apne aap chhoti ho jayegi taaki website phone pe jaldi khule
+
+Iske liye photo kahin rakhni padegi. Do option hain, aap bata dijiye kaunsa
+theek lagta hai.
+
+OPTION 1 - CLOUDINARY (meri salaah)
+
+  - Alag free account banega, cloudinary.com pe
+  - Photo apne aap chhoti aur fast ho jaati hai - website phone pe jaldi
+    khulti hai, jo hotel ke liye zaroori hai
+  - Aapke nau hotel ki photos free plan mein aaram se aa jayengi
+  - Har mahine ka kharcha: 0 rupaye
+
+  Nuksan: ek aur account manage karna padega
+
+OPTION 2 - AMAZON S3
+
+  - Wahi Amazon account jispe website chalegi, koi naya account nahi
+  - Sab kuch ek hi jagah, ek hi bill
+  - Photo chhoti karne ka kaam humein alag se karna padega
+
+  Nuksan: har mahine thoda kharcha aayega. Jitne zyada log website pe photo
+  dekhenge, utna badhega. Aapke hisab se lagbhag 300-800 rupaye mahina, aur
+  traffic badha to zyada
+
+SEEDHI BAAT
+
+Cloudinary is waqt sasta bhi hai aur tez bhi - photo dikhane ka paisa nahi
+lagta aur website phone pe jaldi khulti hai. S3 ka fayda sirf itna hai ki
+sab ek hi account mein rahega.
+
+Meri salaah: Cloudinary. Aap S3 kahoge to bhi bilkul chalega, bas thoda
+kharcha aur aayega.
+
+Aap bata dijiye kaunsa - jo bhi bolo, kaam usi hisab se kar dunga. Agar
+Cloudinary chunte ho to account aapki company ke naam pe banaiye (jaise
+Razorpay hai), aur mujhe password bhejne ki jagah "team member" add kar
+dijiye. 5 minute ka kaam hai, main call pe bata bhi sakta hoon.
+
+
+-------------------------------------------------------------
+WHY I RECOMMEND CLOUDINARY - REASONING, NOT FOR THE CLIENT
+-------------------------------------------------------------
+
+It is a bandwidth question, not a features question.
+
+The site currently ships 558 MB of images, with single PNGs up to 3.45 MB.
+S3 storage is trivially cheap; S3 *egress* is not - roughly $0.09/GB. Every
+visitor loading a gallery pulls real money through that meter, and the bill
+scales with exactly the thing the client wants more of.
+
+Cloudinary's free tier covers 25 GB of delivery a month and transforms images
+on the fly - correct size, modern format, served from a CDN. That fixes the
+558 MB payload as a side effect rather than as a separate project.
+
+S3 can match it, but only with CloudFront in front and a resize step we write
+and maintain ourselves. That is more moving parts for a worse outcome.
+
+If they pick S3 anyway it is fine - the adapter makes it a one-line switch,
+and CloudFront can be added later to bring the egress cost back down.
+/

@@ -1,0 +1,79 @@
+SEND THIS ONE FIRST — she has asked the same question twice (3 Aug, 10:45 and
+10:47) and is waiting on it. Two things to fill in before sending, both marked
+[[ ]] below. The PIN goes in a SEPARATE message, never in this one.
+
+CONTEXT. Screenshot:
+client-assets/briefs/2026-08-03-whatsapp-post-live-signoff-and-admin-panel-question.png
+
+She walked the live site herself and passed it — forms, booking, internal
+linking, registration/login on every page, guest bookings visible, chatbot,
+WhatsApp button. That is the first end-to-end acceptance this project has had
+from outside the team, and it is on production. Say so; she did the work.
+
+Her actual question, asked twice: "ab jo booking hui h ya forms ki details kaha
+show ho rahi h" and "forms details and booking details kaha show hungi ADMIN
+PANEL ME?"
+
+WHAT WAS VERIFIED, 3 Aug, against the live site:
+  - https://www.quadishotels.com/admin returns 200. It is NOT linked from
+    anywhere on the site, so she cannot find it unless told.
+  - POST /api/admin/auth with a wrong PIN returns "Invalid Admin PIN", not
+    "Admin access is not configured" — so ADMIN_PIN and ADMIN_PASSWORD are
+    genuinely set on the box from SSM. The panel works today.
+  - The page shows: today's check-ins, pending holds, pending enquiries,
+    today's revenue, the one-tap inventory switchboard, the WhatsApp payment
+    link generator, Recent Bookings (code, name, phone, check-in, rooms,
+    amount, status) and Recent Leads & RFPs.
+  - All three forms — Contact, Corporate, Banquet — POST to /api/enquiries and
+    land in the Leads card. Verified in the code, all three.
+
+THE PIN. It is in her own AWS Parameter Store at /quadis/admin-pin. Send it in a
+SEPARATE WhatsApp message from the URL, and do not write it into any file under
+docs/ — this repo is public.
+
+TWO LIMITS SHE WILL HIT, AND WHY THEY ARE IN THE MESSAGE. Better she hears them
+from us now than discovers them and loses trust in the number on the screen:
+  - The dashboard shows only the LAST 15 bookings and 15 leads
+    (backend/src/routes/admin.ts:45-46). Nothing is deleted — the database keeps
+    everything — but her VIEW stops at 15, with no search, filter or export.
+  - Registered users appear NOWHERE in the panel. She praised the signup form,
+    so she may well mean accounts when she says "forms ki details".
+Do not promise dates for either until someone has scoped them.
+
+THE REAL QUESTION UNDERNEATH — this is the important part of this message.
+She wrote "admin panel me?" and she means adminweb.quadishotels.com, the panel
+she already has. It is a completely separate system: different server, different
+database, zero connection in either direction (grep across the whole codebase for
+adminweb / 115.124.108.190 returns nothing). Since 1 Aug both are live at the
+same time, so a room can be sold on the new site and booked again by staff in
+the old panel, and neither will know. That is AGENTS.md §5, unanswered since
+27 Jul, and she has now walked into it on her own. Ask it here — inside an answer
+she requested — rather than raising it cold later.
+
+Keep the question SIMPLE. She is not asking an architecture question and should
+not receive one. "Do bookings ek jagah dikhein ya do jagah" is the whole point.
+
+---
+
+Thank you ma'am, aapne poora site khud check kiya — bahut acchi baat hai 🙏
+
+*Booking aur form ki saari details yahan aati hain:*
+https://www.quadishotels.com/admin
+
+Login PIN alag message me bhej raha hoon.
+
+Isme aapko milega — aaj ke check-in, nayi booking (naam, phone, date, amount,
+status), aur Contact/Corporate/Banquet teeno form ki enquiries. Room ko
+Available / Sold Out karne ka option bhi hai.
+
+*Ek cheez poochni thi 👇*
+
+Ye naya panel aapke purane adminweb.quadishotels.com se alag hai — dono ka data
+alag hai, aapas me connected nahi. Matlab nayi website ki booking purane panel
+me nahi dikhegi, aur purane panel ki booking website ko pata nahi chalegi. Aise
+me ek room do baar bik sakta hai.
+
+*To booking aur availability aage se kis ek jagah manage karni hai — nayi
+website wale panel me ya purane adminweb me?*
+
+Baaki jo changes aapne note kiye the wo bhej dijiye, kar dete hain 👍

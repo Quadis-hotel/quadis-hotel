@@ -1,0 +1,56 @@
+SEND THIS ONE ALONE. Message text only — copy from below the line straight into
+WhatsApp, nothing to edit.
+
+CONTEXT. She replied to message B (the DNS access ask) with a well-written
+support email already drafted, and forwarded two addresses asking which one to
+use: serverindiagurgaon@gmail.com and info@indianservers.com.
+
+Her draft email is GOOD — it asks for panel reset OR the A record change, and it
+explicitly protects MX/SPF/DKIM/DMARC. Do not rewrite it. This message only
+answers "which address" and adds two identifying lines.
+
+WHAT WAS VERIFIED, 31 Jul:
+  - theserverindia.com 301-redirects to host.co.in (part of ESDS Ltd Group).
+    Official support: support@host.co.in, +91 966 576 0700.
+  - yellow1.theserverindia.com resolves to 115.124.108.190 — the exact IP her
+    website runs on. That is the proof of which account/box she is on, and it
+    is what lets support find her without a customer ID.
+  - indianservers.com is on Cloudflare, a different network, and host.co.in's
+    own site does not mention it. Probably an unrelated company.
+
+WHY THE RESELLER GOES FIRST. If she bought hosting through the Gurgaon agent,
+that agent holds the account and the panel, and host.co.in will answer "you are
+not our customer". Sending to the reseller with the host CC'd covers either
+case without her needing to know which it is.
+
+PUSH THE PHONE. This is the one blocker on go-live and it has someone else's
+response time built into it. Indian hosting support moves much faster on a call
+than on a ticket.
+
+---
+
+Aapka mail bilkul sahi likha hai, bas bhejna kahan hai wo bata deta hoon.
+
+*Bhejiye is pe:* serverindiagurgaon@gmail.com
+*CC me daal dijiye:* support@host.co.in
+
+Asli hosting company yahi hai — theserverindia ab host.co.in ho gaya hai. Jo
+Gurgaon wala number hai wo shayad aapka local agent hai, isliye pehle unhi ko,
+aur company ko CC. Dono me se jo bhi account rakhta hai, kaam ho jayega.
+
+indianservers.com wala rehne dijiye, wo alag company lagti hai.
+
+Mail me neeche ye do line aur add kar dijiye — isse wo aapka account turant
+dhoondh lenge:
+
+Nameservers: yellow1.theserverindia.com, yellow2.theserverindia.com
+Website IP: 115.124.108.190
+
+Ek aur cheez — mail ke saath *phone bhi kar lijiye*, mail ka jawab aane me time
+lagta hai:
+*+91 966 576 0700*
+
+Unse bas itna kehna hai: "panel ka login reset kar do, ya A record 13.234.85.127
+kar do, email ke records mat chheddo."
+
+Ye ho gaya to website usi din live kar dunga. Bata dijiye kar diya?

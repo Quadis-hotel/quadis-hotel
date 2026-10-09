@@ -1,0 +1,67 @@
+[Unit]
+# The Node API behind nginx's /api/ proxy. Without this unit nothing listens on
+# 127.0.0.1:3001 and every booking, login, enquiry and payment call fails while
+# the site itself renders perfectly — the failure shape of incident 6.
+Description=Quadis Hotels API
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=quadis
+Group=quadis
+WorkingDirectory=/opt/quadis/api
+
+# NODE_ENV=production is NOT cosmetic here, and it is not optional.
+#
+# backend/src/routes/webhooks.ts gates the Razorpay simulation bypass on
+# `process.env.NODE_ENV !== 'production'`. Start this service without it and
+# anyone who can reach /api/webhooks/razorpay can confirm any booking with a
+# plain POST and no payment — the file's own comment says so.
+#
+# backend/src/lib/auth.ts is the second half: absent NODE_ENV=production it
+# signs sessions with the literal string 'quadis-dev-only-session-secret',
+# which is published in the repo. With it set, sessionSecret() returns null
+# and the app refuses to issue sessions at all unless SESSION_SECRET is real.
+#
+# So: this line failing closed is what makes the other two fail closed.
+Environment=NODE_ENV=production
+Environment=PORT=3001
+
+# Everything secret comes from this file, which is written on the box by
+# deploy/install.sh out of SSM Parameter Store and is never in git. It is
+# root-owned 0640 so the quadis user can read it and nobody else can.
+EnvironmentFile=/etc/quadis/api.env
+
+# /usr/bin/node-20, not /usr/bin/node.
+#
+# bootstrap.sh installs the nodejs20 package, but Amazon Linux 2023 also ships
+# nodejs18 and registers both in `alternatives` at priority 100 — so bare
+# `node` resolves to v18.20.8 on this box, verified 31 Jul. Pinning the exact
+# binary means a future `dnf update` reshuffling alternatives cannot silently
+# downgrade the runtime under a service that is already running fine.
+ExecStart=/usr/bin/node-20 dist/server.js
+Restart=always
+RestartSec=5
+
+# Cap it. sharp spikes hard per image on upload and this box also runs
+# Postgres; an unbounded Node process is how the database gets starved.
+MemoryMax=1500M
+
+# Hardening. The API needs to read its own directory and talk to loopback
+# Postgres; it has no business anywhere else on the filesystem.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/quadis/api/uploads
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+StandardOutput=append:/var/log/quadis-api.log
+StandardError=append:/var/log/quadis-api.log
+
+[Install]
+WantedBy=multi-user.target

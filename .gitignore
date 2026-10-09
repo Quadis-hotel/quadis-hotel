@@ -1,0 +1,101 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Vite / TS / Vercel caches
+.vite/
+.vercel/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
+
+# Scraper script
+scrape_quadis.py
+.aider*
+
+# Raw client deliverables: source zips, unpacked folders, design references,
+# working screenshots and the briefs the client sent. Everything the site
+# actually ships is committed under public/ — these are the originals we cut
+# those from, kept locally only.
+#
+# This line is also what keeps the client's credentials out of the repo:
+# client-assets/briefs/ holds their GoDaddy and Razorpay logins in plaintext.
+# Do not narrow this pattern without moving that file somewhere safe first.
+client-assets/
+
+# Local-only documentation. docs/Quadis-Audit-1.md IS tracked; these are not.
+docs/AWS_DEPLOYMENT_GUIDE.md
+docs/Quadis-Frontend-Spec*
+docs/quadis-readme-*
+docs/pr_*_body.md
+/Quadis.mp4
+
+# One-off scratch scripts, kept for reference after their commits landed
+scripts/rewrite*.js
+scripts/archive/
+
+# Catch-alls for anything new dropped in the project root. Client material
+# belongs in client-assets/briefs/, working screenshots in
+# client-assets/screenshots/, unplaced photography in client-assets/UNPROCESSED/.
+# These are the safety net for the window between a file being saved here and
+# being filed — they are NOT the filing system. The root was carrying 22 loose
+# images and an 8.7 MB client PDF on 31 Jul; all of it is now filed.
+#
+# .pdf/.jpg/.png/.docx were added 31 Jul: the original three patterns did not
+# cover PDFs, and "Website Changes.pdf" — the client's own change-request
+# document — sat tracked in the repo root for five days as a result.
+/image*.png
+/*.zip
+/*.jpeg
+/*.jpg
+/*.png
+/*.pdf
+/*.docx
+
+# The 5 Aug 2026 feedback drop. Every pattern above is anchored to the repo
+# root, so a client PDF one directory down slips straight past them — which is
+# how this bit us before. This folder additionally holds a WhatsApp export
+# containing personal, non-work conversation alongside the site feedback, so it
+# is not a filing question: it must not enter the history at all.
+#
+# The three bank logos that came with it ARE committed, as derived site assets
+# under public/logos/banks/ — see the note in src/data/logos.ts.
+/feedback/
+
+# Agents
+..agents/
+
+# Per-agent context files are gone — AGENTS.md at the repo root replaces them,
+# and it IS committed. Two private context files existed, they disagreed about
+# what was done, and the disagreement cost a database outage and 27 broken
+# image paths. A shared contract only works if everyone can see it.
+dist-artifact/

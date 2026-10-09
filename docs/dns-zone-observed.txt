@@ -1,0 +1,19 @@
+# Observed zone for quadishotels.com — captured 27 Jul 2026
+# Everything a public resolver can see. NOT a substitute for a real export.
+
+@                                  A      115.124.108.190
+www.quadishotels.com               CNAME  quadishotels.com.
+mail.quadishotels.com              A      115.124.108.190
+webmail.quadishotels.com           A      115.124.108.190
+ftp.quadishotels.com               CNAME  quadishotels.com.
+blog.quadishotels.com              A      115.124.108.190
+api.quadishotels.com               A      115.124.108.190
+booking.quadishotels.com           A      115.124.108.190
+
+quadishotels.com                   MX    1 smtp.google.com.
+
+TXT   "v=spf1 a mx include:websitewelcome.com include:_spf.google.com include:Yellow.theserverindia.com ~all"
+TXT   "google-site-verification=tx0Bc_a9v1k8qT6UHjQ716HZvDHpLwFt5VFYZjA0u3Y"
+TXT   "google-site-verification=c8NaV2tMxsnJt69f5Wto3bILWNlsYcz1NMDpUcewLP4"
+TXT   _dmarc  "v=DMARC1; p=quarantine; adkim=r; aspf=r"
+TXT   default._domainkey  "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7tzf9ujsnZZ6uOVRtx9xhwgSEelph7HDLD4atIO6DOHbv1fqG8ANr8kECRRlNJIh3W2YWGwMJB3qi0/U0ki5ZAq0ssODz8WZxG2G1PWnpA7ZUAo5lzRiKc4M9hDrU5tYOzUBUoeUEJxx86NN9NkkbwCOgElClE7BlwOQNK0/A4rQP3u0cbYcskuyi1XzgeDVY" "2tIibrSTKHW4h8OEfW6NlNDTnWPF4zEgy+AzDOLXm9Yj1j5N5e7MSqMYHT0CV9cn/3mcoRQUQ6B74nfMDhGKF5HmRLtAXfJlHaB3PfYHIg2VBGsBzOpVcOAmHK4vBWb+xBZNHSZvk8EX0vryMRPtQIDAQAB;"

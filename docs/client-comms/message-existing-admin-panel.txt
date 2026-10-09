@@ -1,0 +1,72 @@
+=============================================================
+MESSAGE — the admin panel that already exists
+=============================================================
+
+Send this before any more work goes into our booking or admin features.
+
+FOR YOU BEFORE SENDING
+----------------------
+
+The client shared a screenshot of adminweb.quadishotels.com. It is not FTP and
+it is not a file server — it is a live hotel management system on their existing
+host, with Dashboard, Hotels, Booking, Settings, Pages, Menu, Coupon, Add
+Occupancy and Users.
+
+It holds real inventory: Quadis Central 17 rooms, Downtown Sector 15 28 rooms —
+the same figures as the rate sheet. It also already has SEO meta fields, image
+upload, occupancy pricing and a booking module. Four things we have built in the
+last two days.
+
+Verified: adminweb.quadishotels.com resolves to 115.124.108.190, the same server
+as the website, responds 200 over HTTPS, titled "Hotel QuaDis". There is also a
+booking.quadishotels.com on the same IP.
+
+This is very likely the "Booking System connected with admin panel" from their
+first reply, and possibly what the revenue manager meant by PMS.
+
+Why it matters: if this system stays, the hotel maintains rates and availability
+in two places. That is the same double-source problem that causes double
+bookings — the exact thing the PMS conversation was about. It has to be one or
+the other.
+
+Do not assume it is dead. Ask first.
+
+
+-------------------------------------------------------------
+THE MESSAGE
+-------------------------------------------------------------
+
+Aapne jo screenshot bheja, wo adminweb.quadishotels.com ka hai. Ye to already
+ek poora system chal raha hai — hotels, booking, coupon, occupancy, users, sab
+kuch usme hai. Maine dekha ki usme aapke hotel ke room numbers bhi sahi pade
+hain, jaise Quadis Central 17 aur Downtown Sector 15 ka 28.
+
+Ye jaanna zaroori hai, isliye 4 sawaal hain. Inke jawab ke baad hi main aage
+ka kaam theek se plan kar paunga.
+
+1. Ye panel abhi chal raha hai? Isme aajkal guest ki booking aa rahi hai kya,
+   ya bas khula pada hai?
+
+2. Ye kisne banaya tha — wahi purane designer ne? Aur abhi bhi wo isko
+   dekhte hain?
+
+3. Isme jo purana data hai — booking, coupon, user — wo naye system mein
+   laana hai kya? Ya sirf aage se naya chalu karein?
+
+4. Sabse zaroori: nayi website aane ke baad ye purana panel band ho jayega,
+   ya dono chalte rahenge?
+
+CHOTI SI BAAT, PAR ZAROORI HAI
+
+Agar dono chalte rahe, to ek dikkat aayegi. Rate aur room availability do
+jagah set honge — purane panel mein bhi, naye mein bhi. Do jagah alag alag ho
+gaye to ek hi room do baar bik sakta hai. Ye wahi problem hai jiski baat PMS
+wale sawaal mein ho rahi thi.
+
+Isliye ek hi jagah rakhni padegi. Aap batao kaunsi — purani ya nayi. Jo bhi
+bologe, main usi hisab se bana dunga. Par pehle ye clear hona chahiye, kyunki
+iske hisab se kaafi kuch badalta hai.
+
+Jab tak ye clear nahi hota, main booking aur admin wala kaam rok raha hoon.
+Ho sakta hai main wahi cheez dobara bana raha hoon jo aapke paas pehle se hai,
+aur wo aapke paise aur time dono ka nuksan hai.

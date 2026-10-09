@@ -1,0 +1,88 @@
+Send message 1 and 2 now. Message 3 and 4 can follow.
+
+=============================================================
+MESSAGE 1 - access and hosting
+=============================================================
+
+Hey, website is almost ready. To put it live on quadishotels.com I need access to a few things from your side
+
+1. Domain login. Where was quadishotels.com bought from (GoDaddy, BigRock, etc)? Need the login to point the domain to the new site
+
+2. Current hosting login. Your site is running on theserverindia.com right now, need access to that panel
+
+3. Do you use email on quadishotels.com, like info@quadishotels.com or stay@quadishotels.com? Is it on the same hosting or on Gmail/Google Workspace separately?
+   Asking because when we switch the domain to the new site, if the email settings are not copied properly your email can stop working. Want to avoid that
+
+4. New hosting will be on AWS. It's a monthly cost, roughly 3 to 8 thousand per month depending on traffic, instead of the yearly plan you have now. Account should be opened in the company name so billing and everything stays with you. Confirm and I'll set it up
+
+5. Anything on the current site I should know before switching? Any enquiry form going to some email, any booking system connected
+
+
+=============================================================
+MESSAGE 2 - payments and company details
+=============================================================
+
+For the online booking and payment part I need
+
+1. Do you already have a payment gateway account (Razorpay, PayU, CCAvenue)? If yes just share the login. If not we need to open one in the hotel's name with your PAN, GST and bank details. Takes a few days for approval so better to start early
+
+2. Company's full registered name, GST number and registered address. This prints on the guest invoices
+
+3. Your cancellation and refund policy in your own words. This has to be shown on the site, the payment company asks for it before approving
+
+
+=============================================================
+MESSAGE 3 - hotel details
+=============================================================
+
+Few things about the hotels so the booking works correctly
+
+1. How many rooms of each type in each hotel? Deluxe, super deluxe, etc. Right now I've put dummy numbers, if they're wrong the site can double book a room
+
+2. Are the current rates correct? Showing 1399 to 1999 per night depending on hotel
+
+3. The 40% extra for 3rd adult, same in all hotels or different for some
+
+4. Is 92173 73532 the right number for booking alerts on WhatsApp? Should it go to anyone else also
+
+5. How many people will use the admin panel? Should everyone use one password, or separate login for each person so you can see who changed what
+
+
+=============================================================
+MESSAGE 4 - content, can come later
+=============================================================
+
+Also need these for the content whenever you get time
+
+1. 6 to 8 guest reviews with name and which hotel. Can take from your Google reviews
+
+2. Your logo, the original design file if you have it. Not a screenshot
+
+3. Photos of each hotel separately. Right now some hotels are showing photos of other properties, want to fix that
+
+4. A photo of Noida city, the current one is a picture of a building
+
+5. Those magazine logos on the site (Conde Nast, Outlook Traveller, Economic Times). Do you have links to the actual articles? If there's no real coverage we should remove that section, otherwise it's a problem using their logos
+
+
+=============================================================
+YOUR OWN CHECKLIST - do not send
+=============================================================
+
+Before touching DNS:
+
+1. Export the full DNS zone from theserverindia.com and save it
+2. Write down the MX records specifically. Repointing nameservers without
+   recreating MX kills their email. This is the one that actually hurts
+3. Find out if email is on that host or on Google Workspace. If it's on the
+   host, move the email separately from the website. Never both at once
+4. Keep the old hosting running 2 to 3 weeks after cutover, DNS takes time to
+   propagate
+
+Still open on the build side:
+- API not reachable in production, nothing server backed works until fixed
+- DATABASE_URL not set, every booking is lost on restart
+- SESSION_SECRET, ADMIN_PASSWORD, ADMIN_PIN not set on any host
+- Razorpay still on test keys
+- Image upload pipeline not built, admin cannot change photos
+- No SEO, one page title across all 17 routes, no sitemap

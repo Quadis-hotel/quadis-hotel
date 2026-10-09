@@ -1,0 +1,295 @@
+=============================================================
+ROUND 4 - drafted 30 Jul 2026
+=============================================================
+
+>> THE SEND ORDER BELOW IS OUT OF DATE. Read README.md's table first; it wins.
+>>
+>> This file says "A (server cost) -> send NOW, alone". That is not what
+>> happened. On 31 Jul the DNS/panel ask went out FIRST, because go-live is
+>> blocked on it and it has a third party's response time built in, while the
+>> cost message only needs her. She answered the same evening.
+>>
+>> Still live below: the reasoning on send order, and items D (Razorpay),
+>> E (PMS/admin panel), and the old-site leftovers. The cost-number history
+>> in the note further down is still accurate and still worth reading before
+>> sending A.
+>>
+>> Careful with the letters: this file's C is Razorpay, but the file named
+>> message-c-which-support-address-SEND.txt is a different thing entirely.
+>> Go by filename, never by letter.
+
+Send order matters. Her replies answer the LAST item and skip the rest — that
+happened on round 1 and again on 29 Jul. One topic per message, and do not send
+B until A has come back.
+
+  A  Server cost          -> send NOW, alone. Overdue: asked twice on 29 Jul.
+                               docs/client-comms/message-a-server-cost-SEND.txt
+                             COPY FROM BELOW THE --- LINE ONLY.
+                             ^^ This used to say "message text only - no notes,
+                             no headers, copy the whole file". That was FALSE:
+                             the file opens with ~40 lines of internal notes
+                             citing AGENTS.md and "do NOT quote 2,380 as the
+                             headline". Sending it whole pastes all of that to
+                             the client. Every *-SEND.txt file in this folder
+                             has a notes header - the --- line is the boundary,
+                             in all of them, without exception.
+                             (message-server-cost.txt is an older version of the
+                             same message. Superseded - do not send it.)
+  B  Razorpay             -> her money, possibly broken right now. Send second.
+  C  PMS + admin panel    -> decides the most work. Needs the revenue manager.
+  D  Third-person charge  -> still unconfirmed, still mis-billing risk.
+  E  Photos               -> includes the AI-image decision, which is hers.
+  G  Old-site leftovers   -> blog, the 9th hotel, and the 52 room pages that
+                             will 404 on cutover. See AGENTS.md 3a.
+  F  theserverindia login -> chase, but it is no longer the long pole.
+
+WHO EACH ONE NEEDS TO REACH. Not all of these are her to answer:
+  - C1 (Book Now / PMS)      the revenue manager she mentioned
+  - C2 (adminweb panel)      whoever built adminweb.quadishotels.com
+  - F  (hosting panel)       the old website designer
+Ask her to forward, rather than waiting for her to know.
+
+Note on the cost number — READ THIS BEFORE SENDING A. She has now been given
+THREE different figures, so the order matters:
+
+  round 1  "roughly 3 to 8 thousand per month"  (AWS, vague)
+  earlier  Rs 1,500-2,000                        (SENT TWICE, and WRONG —
+                                                  priced on t3.small)
+  now      ~Rs 3,500, quote 3,000-3,500          (t3.medium, verified off the
+                                                  AWS pricing API 30 Jul)
+
+This is an INCREASE on the last number she was given, not a reduction, and she
+asked for "sabse kam price". So it does NOT land as good news and it cannot be
+quietly restated — say plainly that the earlier number was wrong and why. The
+SEND file already does this; do not soften it. AGENTS.md 4a.
+
+
+-------------------------------------------------------------
+MESSAGE A - server cost
+-------------------------------------------------------------
+
+Send docs/client-comms/message-a-server-cost-SEND.txt, whole and unedited. It
+is message text only — no notes, no headers — so it copies straight into
+WhatsApp. ~Rs 3,500 a month, monthly billing, no lock-in, with the yearly-commit
+option named but NOT quoted as the headline.
+
+Do NOT send message-server-cost.txt and do NOT add the line that used to sit
+here. Both carried Rs 1,500-2,000, which is the figure being corrected. The
+SEND file opens by naming that correction itself — that is the whole point of
+it, so nothing needs adding at the top.
+
+
+-------------------------------------------------------------
+MESSAGE B - Razorpay, do zaroori baatein
+-------------------------------------------------------------
+
+Razorpay ke baare me do baat, dono paise se judi hain.
+
+1. Aapke naam pe Razorpay pe DO account bane hue hain — dono "QUADIS SERVICES
+   PRIVATE LIMITED" ke naam se, ek September 2021 ka aur ek February 2026 ka.
+   Nayi website ke liye maine February 2026 wala use kiya hai.
+
+   Ek baar check kar lijiye ki purani website ya kisi aur jagah ka payment
+   September 2021 wale account pe to nahi aa raha. Agar aa raha hai to paisa
+   ek alag account me jama ho raha hoga jise koi dekh hi nahi raha. Bata
+   dijiye kaunsa asli chal raha hai.
+
+2. February wale account ki API key maine 29 July ko nayi generate ki thi.
+   Agar wahi key pehle se kahin aur lagi hui thi — purani website ya kisi app
+   me — to wahan payment band ho gaya hoga. Ek baar check kar ke bata dijiye.
+   Agar band hua hai to turant theek kara dunga.
+
+3. Razorpay dashboard me Settings me "Payment Capture" dekhiye — wo "Automatic"
+   hona chahiye, "Manual" nahi. Manual pe guest ka paisa to kat jayega par
+   booking confirm nahi hogi. Screenshot bhej dijiye, main dekh lunga.
+
+
+-------------------------------------------------------------
+MESSAGE C - PMS aur admin panel (revenue sir se poochna hai)
+-------------------------------------------------------------
+
+Ye sabse zaroori sawaal hai — isse aage ka poora kaam decide hota hai.
+
+1. Guest "Book Now" dabata hai. Uske baad kya ho?
+
+   (a) Hamari hi website pe ruke, payment wahin kare, bill bhi hamara
+   (b) PMS/booking system ke apne page pe chala jaye, payment wahan ho
+
+   (b) chuna to booking screen, payment aur GST bill ka jo kaam ho chuka hai
+   wo istemaal hi nahi hoga. Isliye ye pehle batana zaroori hai.
+
+   Saath me ye bhi pooch lijiye: PMS ka naam kya hai, unke plan me API access
+   hai ya nahi, aur channel manager hai ya nahi (MakeMyTrip/Goibibo pe
+   inventory sync karne ke liye wo alag se lagta hai).
+
+2. adminweb.quadishotels.com — ye aapka admin panel abhi bhi chal raha hai aur
+   usme aapke asli room aur rate pade hain (Quadis Central 17, Downtown 28).
+   Do cheezein batayein:
+
+   - Ye kisne banaya tha, abhi koi maintain karta hai?
+   - Nayi website iski jagah legi, ya dono saath chalenge?
+
+   Poochne ki wajah: agar rate aur availability DO jagah maintain hui, to ek
+   jagah room "sold out" hoga aur dusri jagah wahi room bik jayega. Double
+   booking wahin se hoti hai. Ek hi system rakhna padega — kaunsa rakhna hai
+   ye aapka decision hai, technical baat nahi hai.
+
+
+-------------------------------------------------------------
+MESSAGE D - teesre person ka charge (abhi bhi atka hua hai)
+-------------------------------------------------------------
+
+Iske baare me teen jagah teen alag baat aayi hai, isliye seedha example se
+pooch raha hoon. Ek number bata dijiye, rule nahi.
+
+1. 2,000 wala deluxe room, do log the, ab teesra ADULT aa gaya.
+   Us raat ka total kitna lagega?
+
+   30% wala rule maane to 2,600
+   Rate sheet pe likhe "EXTRA ADULT 500" ke hisab se 2,500
+
+   Abhi maine 30% laga rakha hai.
+
+2. Wahi room, teesra BACHA hai bade ke bajay. Total kitna?
+   Charge lagta hai ya free? Agar lagta hai to kis umar se?
+
+   Abhi bache ka charge nahi lag raha. Aapne kaha tha "if it's child then no",
+   par sheet pe "CHILD 250" likha hai.
+
+3. Aur ek: 13 se 17 saal wale ko poora adult maanein ya bacha? Abhi adult maana
+   hua hai. 2,000 ke room pe ye 600 rupaye ka farak hai.
+
+
+-------------------------------------------------------------
+MESSAGE E - photos
+-------------------------------------------------------------
+
+1. Jo photo gallery aapne bheji thi, usme 8 photo AI se banayi hui lag rahi
+   hain — reception, lobby, corridor, aur do pe to "HOTEL DOWNTOWN51" ka board
+   bhi laga hai. Maine wo waise hi laga di hain jaise aapne bheji thi.
+
+   Par ek baar confirm kar dijiye. Website pe wo room aur lobby dikhenge jo
+   asal me hain nahi, aur guest ko farak nahi pata chalega — pahunchne pe
+   chalega. Bolo to ek minute me hata dunga.
+
+2. Amby Inn ke room ka naam confirm kar dijiye.
+
+   Aapki purani website pe Amby Inn me DO category hain — Deluxe aur Executive.
+   Super Deluxe kahin nahi hai. Par jo rate sheet aapne bheji thi usme Deluxe
+   20 aur Super Deluxe 3 likha hai.
+
+   To sahi kya hai — Amby Inn me "Executive" hai ya "Super Deluxe"? Nayi
+   website pe abhi Super Deluxe likha hua hai, jo shayad galat hai.
+
+   Jab tak aap nahi batate main naam badlunga nahi — guest ko galat room bik
+   jayega.
+
+3. Ye teen abhi bhi pending hain:
+   - Noida city ka ek photo. (Jo abhi laga hai wo aapke hi Cladis Sector 15
+     ki building ka photo hai — isiliye aapko "building" dikh rahi thi. Aapki
+     baat sahi thi.)
+   - "Quadis Select" wali image badi size me. Jo bheji thi wo bahut chhoti hai,
+     phone pe dhundhli dikhti hai.
+   - Baaki hotels ki apni photos. Paanch hotel ab theek ho gaye hain.
+
+
+-------------------------------------------------------------
+MESSAGE G - purani website ki kuch cheezein (added 30 Jul)
+-------------------------------------------------------------
+
+Aapki purani website dekhi, usme teen cheezein aisi hain jo nayi wali me nahi
+hain. Batayein kya karna hai.
+
+1. blog.quadishotels.com — ye abhi bhi chal raha hai. Ye chahiye ya band kar
+   dein? Agar chahiye to alag se plan karna padega, kyunki wo purane server pe
+   hai.
+
+2. Purani website pe 8 hotel hain. Nayi me maine 9 daale hain — ek extra hai,
+   "Quadis Central, Sector 27 Noida". Wo hotel chalu hai kya? Purani website pe
+   uska page hai hi nahi.
+
+3. Purani website pe har room ka alag page bana hua hai — jaise deluxe room,
+   deluxe room with breakfast, deluxe room with all meals. Aise 52 page hain
+   aur wo Google me aaye hue hain.
+
+   Nayi website me ek hotel ka ek hi page hai jisme saare room dikhte hain. To
+   jab switch karenge, Google me jo purane link hain wo khaali page pe le
+   jayenge. Main un sabko naye page pe redirect kar dunga taaki koi guest
+   khoye na — bas ye bata dijiye ki aapko wo alag-alag room page chahiye hi
+   hain ya ek hi page theek hai.
+
+   (Ek chhoti baat: purani site pe ek "Test-Hotel-Slug" naam ka page bhi Google
+   me chala gaya hai. Purane wale ko bol dijiye hata de.)
+
+4. Aapki purani website ke Privacy Policy aur Terms & Conditions dono page
+   maine nayi website pe daal diye hain, wahi content. Do cheezein poochni
+   hain:
+
+   (a) Terms wale page pe likha hai "advance deposit wapas nahi hoga". Par jo
+       cancellation policy aapne bheji thi usme likha hai ki check-in se 24
+       ghante pehle cancel karo to poora refund. Dono baat ulti hai.
+
+       Guest ko kya batana hai - 24 ghante wala rule sahi hai na? Abhi maine
+       wahi rakha hai, aur Terms page pe likh diya hai ki cancellation policy
+       hi final hai. Aap confirm kar dijiye.
+
+   (b) Privacy page pe email "info.quadishotels.com" aur
+       "wecare.quadishotels.com" likha hai - dono me @ ki jagah dot lag gaya
+       hai. Maine info@quadishotels.com kar diya hai. Ye "wecare" wali email
+       chalti bhi hai kya? Agar haan to spelling bata dijiye, add kar dunga.
+
+
+-------------------------------------------------------------
+MESSAGE F - website switch karna (login NAHI maangna)
+-------------------------------------------------------------
+
+DO NOT ask for the panel login again. She refused it on 27 Jul because her other
+websites sit on the same server — see docs/dns-cutover.md. That refusal is
+reasonable and the login is not needed. Ask for the record change instead, and
+ask for the TTL drop FIRST, days earlier, as its own step.
+
+Send this:
+
+  Website live karne ke liye aapka koi password nahi chahiye, tension mat lena.
+  Bas theserverindia ke support ko (ya purane designer ko) ek chhota kaam bolna
+  hoga — do step me.
+
+  *Step 1, ye abhi bol dijiye:*
+  "quadishotels.com ke A record ka TTL 86400 se 300 kar do. Aur kuch mat
+  badalna."
+
+  Isse website pe koi asar nahi padta. Zaroorat isliye hai ki switch wale din
+  change turant lag jaye. Abhi setting aisi hai ki koi bhi badlav lagne me 24
+  ghante lagte hain — aur kuch gadbad hui to wapas karne me bhi 24 ghante.
+
+  *Step 2, switch wale din:*
+  "quadishotels.com ka A record naye IP pe point kar do. Baaki kuch mat chhedna
+  — MX, TXT aur saare subdomain jaise hain waise rehne do."
+
+  Bas itna. Email, admin panel, blog — sab waise ka waisa chalta rahega, kyunki
+  hum unko haath hi nahi laga rahe. Sirf website ka address badal raha hai.
+
+  Ek aur baat: domain 18 January 2027 ko renew hona hai. GoDaddy pe auto-renew
+  on kar dijiyega.
+
+
+=============================================================
+PART B - NOT FOR THE CLIENT
+=============================================================
+
+- Message A is the only one that is overdue. Everything else has been open for
+  days without her chasing it, so do not let the batch delay A.
+
+- E1 (AI images) is deliberately framed as her decision, not a defect. They were
+  placed exactly as sent. Removal is one command:
+    rm public/images/{rooms/deluxe,rooms/superior,facade}/chatgpt-*.webp
+
+- F's "sirf EK setting" claim is true only if we go with a VPS (static IP, apex
+  A record). It is NOT true on CloudFront, which has no static IP and forces a
+  nameserver move. Do not send F until the hosting shape is decided, or the
+  promise about her email becomes one we cannot keep.
+
+- Photo storage (Cloudinary vs S3) is deliberately NOT in this round. On a VPS
+  the S3 option stops making sense — Cloudinary becomes the only sensible
+  choice, so there is no longer a question to ask her. Revisit
+  message-photo-storage.txt before sending it; half of it is now wrong.

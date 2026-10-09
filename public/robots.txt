@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Nothing a searcher wants, and /admin must never be indexed.
+Disallow: /admin
+Disallow: /account
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://www.quadishotels.com/sitemap.xml

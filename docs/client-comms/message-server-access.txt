@@ -1,0 +1,77 @@
+=============================================================
+MESSAGE — server access, when they say no
+=============================================================
+
+Context: the client will not share the theserverindia login because their other
+websites are hosted on the same server.
+
+That is a completely reasonable refusal. A cPanel login for a shared hosting
+account exposes every site on it, not just this one, and we do not need it.
+
+FOR YOU BEFORE SENDING
+----------------------
+
+The important finding, verified by DNS query on 27 Jul: their other websites are
+**separate domains** on a shared server (reverse DNS is
+yellow.theserverindia.com), not subdomains of quadishotels.com. So moving
+quadishotels.com's nameservers cannot affect them. That is what makes option B
+below safe, and it is worth saying plainly because their fear is the honest
+objection here.
+
+quadishotels.com's own zone does carry real records beyond the website —
+www, mail, webmail, ftp, blog, api, booking, plus Google Workspace MX, SPF,
+DMARC and a DKIM key. All captured in docs/dns-zone-observed.txt. A public
+resolver cannot see everything, so option A remains the lower-risk path.
+
+Push option A first. Only move to B if the previous designer will not help.
+
+
+-------------------------------------------------------------
+THE MESSAGE
+-------------------------------------------------------------
+
+Server ka password bilkul mat bhejiye, aapki baat sahi hai. Us panel se aapki
+saari websites khul jaati hain, sirf ye wali nahi. Mujhe uski zaroorat hai bhi
+nahi.
+
+Website switch karne ke do tareeke hain. Dono mein aapki dusri websites ko
+kuch nahi hoga.
+
+TAREEKA 1 — sabse aasan (meri salaah)
+
+Purane designer ya theserverindia ke support ko bas ek line bolni hai:
+
+  "quadishotels.com ka A record 115.124.108.190 se badal kar <naya address>
+   kar dijiye. Baaki koi record mat chhediye — MX, TXT, sab waise hi rahe."
+
+Bas itna. Ek record. Na password chahiye, na kuch aur. Unka 5 minute ka kaam
+hai. Naya address main aapko de dunga.
+
+TAREEKA 2 — agar wo madad na karein
+
+Sirf quadishotels.com ka DNS hum Amazon pe le aate hain. Ye GoDaddy se hota
+hai, jiska access aapke paas already hai — theserverindia ki zaroorat nahi.
+
+Ek baat clear kar dun, kyunki aapki chinta yahi hogi: aapki dusri websites
+alag domain pe hain, isliye unpe iska koi asar nahi padega. Maine check kar
+liya hai. Sirf quadishotels.com move hoga.
+
+Isme thoda dhyan rakhna padta hai, kyunki aapke domain pe website ke alawa
+aur bhi cheezein chal rahi hain — mail, webmail, blog, api, booking. Ye sab
+naye jagah pe dobara banane padenge, warna wo band ho jayengi. Maine inki
+list bana li hai.
+
+EK CHEEZ ZAROORI HAI
+
+Chahe koi bhi tareeka ho, ek cheez chahiye — purane panel se DNS ka poora
+export (zone file). Ye password nahi hai, sirf ek list hai ki aapke domain pe
+kya kya set hai. Purane designer se ya theserverindia support se maang lijiye:
+
+  "quadishotels.com ki DNS zone file export karke bhej dijiye"
+
+Iske bina risk ye hai ki koi record chhoot jaaye jo bahar se dikhta hi nahi,
+aur baad mein pata chale ki mail ya koi purana link band ho gaya. Aapka mail
+Google pe hai aur wo mera pehla priority hai — usko band nahi hone dunga.
+
+Jab tak ye nahi milta, website AWS pe test address pe chal rahi hai aur aap
+dekh sakte ho. Live sirf tab karenge jab ye clear ho jaaye.

@@ -1,0 +1,64 @@
+services:
+  # 1. Quadis Hotels Backend API Server (Node/Express/PostgreSQL)
+  - type: web
+    name: quadis-backend
+    env: node
+    plan: free
+    region: singapore
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      # Secrets are declared, never valued, in this file — it is in version
+      # control. `sync: false` makes Render prompt for each one at deploy time
+      # and keeps it in the dashboard.
+      #
+      # DATABASE_URL must be a real PostgreSQL connection string. The previous
+      # `in-memory` value meant every booking, enquiry and account was lost on
+      # each restart or redeploy.
+      - key: DATABASE_URL
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: OWNER_WHATSAPP_PHONE
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      # Staff PIN exchanged for the admin bearer token at /api/admin/auth.
+      - key: ADMIN_PIN
+        sync: false
+      # Guards every admin route (see backend/src/middleware/auth.ts). Unset =
+      # admin routes return 503 rather than serving guest data.
+      - key: ADMIN_PASSWORD
+        sync: false
+      # Signs guest sessions.
+      - key: SESSION_SECRET
+        generateValue: true
+      # ResAvenue channel manager credentials and push URL. Unset = the
+      # /api/ota endpoints answer 503 and no reservation push is attempted.
+      - key: RESAVENUE_OTA_USERNAME
+        sync: false
+      - key: RESAVENUE_OTA_PASSWORD
+        sync: false
+      - key: RESAVENUE_PUSH_URL
+        sync: false
+
+  # 2. Quadis Hotels Frontend Static SPA (Vite + React + Vanilla CSS)
+  - type: web
+    name: quadis-frontend
+    env: static
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

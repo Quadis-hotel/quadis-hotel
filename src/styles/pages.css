@@ -1,0 +1,898 @@
+/* ============================ Heroes ============================ */
+
+/* Hero text legibility over warm placeholder + scrim, and over real photos. */
+.home-hero__content, .photo-hero__content, .mini-hero__content { text-shadow: 0 2px 24px rgba(10,9,6,.6); }
+.home-hero__content .overline, .photo-hero__content .overline, .mini-hero__content .overline { text-shadow: 0 1px 14px rgba(10,9,6,.7); }
+
+.photo-hero { position: relative; display: flex; align-items: center; overflow: hidden; }
+.photo-hero--band { min-height: 420px; }
+.photo-hero--short { min-height: 320px; }
+
+/*
+ * For a composed banner rather than a photograph.
+ *
+ * --short is a fixed 320px band and .hero-media is object-fit:cover, so a
+ * full-bleed banner is scaled to the viewport width and then cropped to that
+ * band: the client's 1351x500 corporate banner becomes 711px tall on a 1920px
+ * screen and loses ~55% of its height, which is what she reported as "ye cut
+ * raha h". Cropping is right for a photograph — any crop still reads as the
+ * same room — and wrong for a banner, where the composition IS the content and
+ * she designed to a fixed size.
+ *
+ * So the image goes back into normal flow and the band takes ITS height. No
+ * ratio is written down here on purpose: the two banners she has sent are
+ * 2.702:1 (corporate) and 3:1 (gallery), so any hardcoded aspect-ratio would
+ * crop one of them. This crops neither, and needs no edit for the next one.
+ *
+ * The heading then overlays absolutely.
+ *
+ * The floor belongs to the placeholder, not to the band. A real banner sets the
+ * band's height itself; only the no-photo fallback needs a minimum, because
+ * HeroMedia renders a bare <div> there and `height: auto` on a div is zero.
+ * Carrying the floor on the section instead letterboxed every banner shorter
+ * than 160px — on a phone the client's 2.702:1 artwork is ~133px tall, so a
+ * grey strip appeared under it and the heading sat half on the artwork and half
+ * on the strip. That is her 5 Aug 2026 item 11, "Banner should be mobile
+ * friendly"; the type scale further down finishes the job.
+ */
+.photo-hero--banner { display: block; position: relative; }
+.photo-hero--banner .hero-media {
+  position: relative;
+  inset: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.photo-hero--banner .hero-media--ph { min-height: 160px; }
+.photo-hero--banner .photo-hero__content {
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+}
+.photo-hero__content { position: relative; z-index: 2; text-align: center; margin-inline: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.photo-hero__title { max-width: 16ch; }
+.photo-hero__sub { color: var(--text-on-dark-2); max-width: 52ch; }
+
+.mini-hero { position: relative; min-height: 240px; display: flex; align-items: center; overflow: hidden; }
+/*
+ * Centred, like every other hero on the site. /hotels is the only page using
+ * this band, and it was the one the client circled on 5 Aug 2026 (item 10,
+ * "Both Text should be in middle"): the overline and "Our Hotels" sat hard
+ * against the left edge of a very wide photograph while /dining, /corporate and
+ * /about all centre theirs through .photo-hero__content.
+ */
+.mini-hero__content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+
+@media (max-width: 768px){
+  .home-hero { height: auto; min-height: auto; padding-block: 68px 32px; }
+  /* `height: auto` was sized for a hero that also carried a headline. With only
+     the search bar left, the section would shrink to the bar plus its padding
+     and the background video — absolutely positioned, so it contributes no
+     height — would show as a thin strip. Give it back a floor. */
+  .home-hero--bar-only { min-height: 460px; padding-block: 56px 36px; }
+
+  /*
+   * Banner heroes on a phone — client, 5 Aug 2026, item 11, "Banner should be
+   * mobile friendly".
+   *
+   * The banner variant deliberately shows the client's artwork whole instead of
+   * cropping it, so on a 360px phone the band is only ~133px tall while .h1 is
+   * still asking for 44px against a 16ch measure. "Corporate Hotel Booking" and
+   * "Dining by Quadis" therefore ran off the bottom of the artwork and onto the
+   * letterbox strip below it. Scale the overlay to fit her composition rather
+   * than cropping her composition to fit the type: 6.4vw is ~23px at 360px,
+   * which puts a two-line heading and its overline comfortably inside a 2.7:1
+   * band, and the clamp stops growing at the 768px edge of this query.
+   */
+  .photo-hero--banner .photo-hero__content { gap: var(--s-1); }
+  .photo-hero--banner .photo-hero__title { font-size: clamp(20px, 6.4vw, 46px); }
+  .photo-hero--banner .overline { font-size: 10px; letter-spacing: .16em; }
+
+  /*
+   * A banner carrying a `sub` as well (only /gallery does) has more copy than a
+   * 3:1 strip can hold at any size still worth reading. That one stops
+   * overlaying and stacks under the artwork on its own band, so the artwork
+   * stays uncropped and the copy stays inside the section either way.
+   */
+  .photo-hero--banner:has(.photo-hero__sub) .photo-hero__content {
+    position: static;
+    background: var(--bg-dark);
+    padding-block: var(--s-5);
+  }
+}
+
+/* ============================ Stats / intro ============================ */
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; align-items: center; padding-top: 24px; }
+.stat { display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.stat__n { font-family: var(--font-display); font-size: clamp(38px, 5vw, 48px); color: var(--text-primary); line-height: 1; }
+.stat__l { color: var(--gold-deep); }
+@media (max-width: 900px){ .stats { grid-template-columns: repeat(3, 1fr); gap: 32px 16px; } }
+@media (max-width: 560px){
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 40px 16px; }
+  .stats .stat:last-child { grid-column: 1 / -1; }
+}
+
+.intro { max-width: 760px; margin-inline: auto; gap: 24px; }
+.intro__body, .prose p, .prose__p { font-size: 17px; line-height: 1.8; color: var(--text-muted-2); }
+.intro .intro__body { max-width: 720px; }
+.center-block { max-width: 720px; margin: 20px auto 48px; text-align: center; color: var(--text-muted-2); font-size: 17px; line-height: 1.8; }
+.prose { max-width: 720px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+.prose.center-col p { text-align: center; }
+
+/*
+ * Title block for a route that has no PhotoHero. /cancellation-policy is the
+ * only one.
+ *
+ * It carried `section-head pt-header ... pb-12` with `mt-4` on the lead, and
+ * none of those four class names exist — §9, there is no Tailwind here, so they
+ * resolved to nothing. The block therefore had zero padding on every side: the
+ * heading sat flush against the bottom of the site header with the lead jammed
+ * under it, which is most of why the client read this page as wrong. The
+ * font-size was the part she could name.
+ */
+.page-head { padding-block: var(--s-7) var(--s-6); }
+.page-head .lead { margin-top: var(--s-4); max-width: 68ch; margin-inline: auto; }
+
+/* ============================ Home sections ============================ */
+.home-hotels__pills { margin: 20px 0 28px; }
+.exp-grid { margin-top: 28px; }
+.exp-card { background: var(--surface-dark); border: 1px solid rgba(203,195,178,.12); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
+.exp-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+.exp-card__media { aspect-ratio: 4/3; }
+.exp-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.exp-card__body { padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; }
+.exp-card__blurb { color: var(--text-on-dark-2); font-size: 14.5px; line-height: 1.7; }
+.exp-card__cta { align-self: flex-start; color: var(--text-on-dark); }
+
+.testi { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; }
+.testi__head { align-self: center; }
+@media (max-width: 900px){ .testi { grid-template-columns: 1fr; } }
+
+.partners { display: flex; flex-wrap: wrap; justify-content: center; gap: 48px; align-items: center; }
+/* Most supplied marks are dark-on-white, so on the dark band they need a light
+   plate rather than being dropped straight onto the background. */
+.partner-logo {
+  height: 40px; width: auto; max-width: 140px; object-fit: contain;
+  background: #fff; border-radius: var(--radius); padding: 8px 12px;
+  opacity: .85; transition: opacity .2s ease, transform .2s ease;
+}
+.partner-logo:hover { opacity: 1; transform: translateY(-2px); }
+
+.cta-band { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; }
+
+/* ============================ About ============================ */
+.about-facade { position: relative; height: 460px; overflow: hidden; }
+.values-grid { margin-top: 44px; }
+.value-card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; }
+.value-card__rule { width: 40px; height: 2px; background: var(--gold); }
+.value-card p { color: var(--text-muted-2); font-size: 15px; line-height: 1.7; }
+
+/* ============================ Hotels listing ============================ */
+.list-pills { margin-bottom: 16px; }
+.list-count { text-align: center; margin-bottom: 32px; }
+.list-empty {
+  margin-top: var(--s-6);
+  padding: var(--s-7) var(--s-5);
+  text-align: center;
+  border: 1px dashed var(--border-card-2);
+  border-radius: var(--radius-md);
+  display: flex; flex-direction: column; align-items: center; gap: var(--s-4);
+}
+
+/* ============================ Hotel detail ============================ */
+.detail-top { padding-top: 40px; }
+.back-link { display: inline-block; margin-bottom: 20px; font-size: 14px; color: var(--text-muted); }
+.back-link:hover { color: var(--gold-deep); }
+/* 24px tall, and it is the only way back out of a hotel page without using the
+   browser's own control. Negative inset keeps the text on the same baseline it
+   sat on before the box grew around it. */
+@media (max-width: 768px){
+  .back-link { min-height: 44px; display: inline-flex; align-items: center; margin-bottom: 10px; margin-left: -4px; padding-inline: 4px; }
+}
+
+.gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 32px; }
+.gallery__main { padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16/11; }
+.gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__thumbs { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 12px; }
+/* Thumbs fill their grid row so the column matches the main image exactly.
+   Locking them to 4/3 here left each row part-empty, which read as a large
+   gap down the middle of every hotel page. */
+.gallery__thumb { position: relative; padding: 0; border: 0; background: none; cursor: pointer; border-radius: var(--radius); overflow: hidden; height: 100%; min-height: 0; }
+.gallery__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.gallery__thumb:hover img { transform: scale(1.05); }
+.gallery__thumb.is-active { outline: 2px solid var(--gold); outline-offset: 2px; }
+.gallery__more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(20,19,16,.6); color: var(--text-on-dark); font-family: var(--font-display); font-size: 22px; }
+/* Stacked layout: no main image to match, so reserve a ratio again. */
+@media (max-width: 767px){
+  .gallery { grid-template-columns: 1fr; }
+  .gallery__thumbs { grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; }
+  .gallery__thumb { aspect-ratio: 4/3; height: auto; }
+  .gallery__thumb .photo--fill { height: 100%; }
+}
+
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(15,14,11,.92); display: grid; place-items: center; padding: 5vw; }
+.lightbox__img { max-width: 92vw; max-height: 86vh; object-fit: contain; border-radius: var(--radius-sm); }
+.lightbox__close { position: absolute; top: 20px; right: 24px; width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.1); border: 0; color: #fff; display: grid; place-items: center; cursor: pointer; }
+.lightbox__close:hover { background: var(--gold); color: var(--bg-dark); }
+.lightbox__nav { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.1); border: 0; color: #fff; display: grid; place-items: center; cursor: pointer; }
+.lightbox__nav:hover { background: var(--gold); color: var(--bg-dark); }
+.lightbox__nav--prev { left: 20px; } .lightbox__nav--next { right: 20px; }
+.lightbox__count { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color: var(--text-on-dark-2); font-size: 14px; }
+
+.detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; padding-bottom: 28px; border-bottom: 1px solid var(--border-card-2); }
+.detail-head__name { margin-bottom: 8px; }
+.detail-head__addr { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--text-muted); font-size: 14px; }
+.detail-head__addr svg { color: var(--gold-deep); }
+.map-link { color: var(--gold-deep); font-weight: 600; }
+.map-link:hover { color: var(--gold); }
+/* 24px tall, and it hands the guest off to directions — the one link on a hotel
+   page a guest standing on a street corner actually needs to hit first time. */
+@media (max-width: 768px){
+  .map-link { min-height: 44px; display: inline-flex; align-items: center; }
+}
+.detail-head__meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.detail-head__rating { display: inline-flex; align-items: center; gap: 6px; color: var(--gold); font-weight: 700; }
+.detail-head__price { font-family: var(--font-display); font-size: 22px; color: var(--text-primary); }
+
+.detail-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; margin-top: 40px; align-items: start; }
+.detail-grid--simple { grid-template-columns: 1fr 320px; }
+.detail-main { display: flex; flex-direction: column; gap: 48px; }
+/* Scroll targets for the "BOOK A RESERVATION" band. The nav is position:sticky
+   at 76px (.nav__inner in chrome.css), so without this the browser scrolls the
+   heading to y=0 and the header sits on top of it — the guest lands on a
+   section whose title is hidden. 96px is the 76px bar plus breathing room. */
+#choose-room, #hotel-grid { scroll-margin-top: 96px; }
+
+.detail-block { display: flex; flex-direction: column; gap: 16px; }
+.detail-block .overline { margin-bottom: 2px; }
+
+.amenities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.amenity { display: flex; align-items: center; gap: 12px; padding: 16px; background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); font-size: 14px; }
+.amenity svg { color: var(--gold-deep); flex: none; }
+/* Two-up on a phone, but the tile has to be allowed to be narrower than its
+   longest label or the grid track widens to fit "Air Conditioning" and takes
+   the page with it: 1fr is minmax(auto, 1fr), and `auto` will not go below the
+   content's min-content width. Trimmed padding and 13px keep the word on one
+   line at 360px; min-width: 0 means it wraps rather than pushing at 320px.
+   Part of the client's 5 Aug 2026 item 5 sweep for horizontal overflow. */
+@media (max-width: 560px){
+  .amenities { grid-template-columns: 1fr 1fr; }
+  .amenity { min-width: 0; padding: 14px 12px; font-size: 13px; }
+  .amenity span { min-width: 0; }
+}
+
+.map-embed { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-card); aspect-ratio: 16/8; }
+.map-embed iframe { width: 100%; height: 100%; border: 0; }
+.map-embed--tall { aspect-ratio: auto; height: 320px; }
+
+.book-card { position: sticky; top: 96px; background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-card); }
+.book-card__summary { margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-card-2); }
+.book-card__selection { font-size: 13.5px; color: var(--text-primary); margin-top: 6px; }
+.book-card__price { font-size: 15px; color: var(--text-muted); margin-bottom: 4px; }
+.book-card__price strong { font-family: var(--font-display); font-size: 26px; color: var(--text-primary); }
+.book-card__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+/* Same automatic-minimum trap as the booking bar (see .bbar__field in
+   chrome.css): a 1fr track will not shrink below the min-content width a native
+   date input reports, so on a phone the two date cells pushed the whole card
+   past the right edge of the viewport. Client, 5 Aug 2026, item 5. */
+.book-card__row .field, .book-card__row .field__input { min-width: 0; }
+.book-card__total { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border-card-2); margin-top: 6px; font-size: 13.5px; color: var(--text-muted); }
+.book-card__total strong { font-family: var(--font-display); font-size: 20px; color: var(--text-primary); }
+.book-card__cta { width: 100%; }
+.book-card__ok { margin-top: 14px; padding: 12px 14px; background: rgba(122,138,92,.12); border-radius: var(--radius-sm); font-size: 13.5px; color: var(--text-muted-2); }
+.book-card__note { margin: -6px 0 12px; font-size: 12.5px; line-height: 1.5; color: var(--text-muted); }
+.book-card__note--soft { margin: 8px 0 0; color: var(--text-muted-2); }
+
+/* Rooms / Adults / Children sit three-up; the row above is a 2-col grid. */
+.book-card__row--three { grid-template-columns: repeat(3, 1fr); }
+
+/* Itemised lines above the total, shown only when there is an extra bed to
+   explain — a guest should never meet a surcharge for the first time on the
+   payment screen. */
+.book-card__line {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 6px 0; font-size: 13px; color: var(--text-muted);
+}
+.book-card__line span:last-child { white-space: nowrap; color: var(--text-body); }
+
+.book-card__children { margin: 0 0 14px; }
+.book-card__ages { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 7px; }
+.book-card__ages .field--age { flex: 0 0 68px; }
+/* Visible label would repeat "Child 1 age" beside every select; the accessible
+   name is carried by aria-label on the control itself. */
+.field__label--sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.book-card__cta:disabled { opacity: .55; cursor: not-allowed; }
+
+@media (max-width: 560px){
+  /* Three selects do not fit a phone; fall back to two columns and let
+     Children wrap onto its own row. */
+  .book-card__row--three { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px){
+  .detail-grid, .detail-grid--simple { grid-template-columns: 1fr; }
+  .book-card { position: static; }
+
+  /*
+   * Stay Policy moves to directly under the room list — client, 5 Aug 2026,
+   * item 7: "On all hotel landing pages, please place this section immediately
+   * just below the Room Categories section in the mobile view." 900px is where
+   * the two-column detail layout has already collapsed, so this is exactly the
+   * "mobile view" she is describing.
+   *
+   * Done with flex order rather than by moving the markup, so the desktop
+   * layout, the DOM order and the tab order all stay as they are. .detail-main
+   * is already a flex column. Everything defaults to order 0, so the policy
+   * block only has to jump the one section between it and the rooms, and the
+   * two blocks that follow the rooms have to stay behind it — hence the sibling
+   * selector, which needs no extra class on either of them.
+   */
+  .detail-main > .detail-block--policy { order: 1; }
+  .detail-main > #choose-room ~ .detail-block { order: 2; }
+}
+
+/* ============================ Rooms Grid & Cards ============================ */
+/* min() so the track can fall below its 280px ideal on a narrow phone. A bare
+   minmax(280px, 1fr) is a floor the container cannot undercut, so at 320px —
+   272px of content box — every card overran the viewport by 8px. */
+.rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 24px; margin-top: 16px; }
+.room-card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.room-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.room-card--selected { border: 2px solid var(--gold); box-shadow: 0 16px 36px rgba(200,162,74,.18); }
+.room-card__img { aspect-ratio: 16/10; overflow: hidden; background: var(--bg-warm); }
+.room-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.room-card:hover .room-card__img img { transform: scale(1.04); }
+.room-card__body { padding: 22px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.room-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.room-card__title { margin-bottom: 4px; }
+.room-card__specs { font-size: 13px; color: var(--gold-deep); font-weight: 600; }
+.room-card__price { text-align: right; flex: none; font-size: 13.5px; color: var(--text-muted); }
+.room-card__price strong { display: block; font-family: var(--font-display); font-size: 20px; color: var(--text-primary); }
+.room-card__desc { font-size: 14.5px; line-height: 1.6; color: var(--text-muted-2); flex: 1; }
+.room-card__meals { display: flex; flex-direction: column; gap: 8px; padding-top: 6px; border-top: 1px solid var(--border-card-2); }
+.room-card__meals-label { font-size: 12.5px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+.room-card__meal-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.meal-chip { padding: 6px 12px; border-radius: var(--radius-pill); border: 1px solid var(--border-card); background: var(--bg-cream); font-size: 12.5px; color: var(--text-muted-2); cursor: pointer; transition: all .15s ease; }
+.meal-chip:hover { border-color: var(--gold); color: var(--text-primary); }
+.meal-chip.is-active { background: var(--gold); border-color: var(--gold); color: var(--bg-dark); font-weight: 600; }
+.room-card__cta { margin-top: 6px; }
+.room-card__cta button { width: 100%; }
+
+/* ============================ Banquets ============================ */
+.venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+@media (max-width: 767px){ .venue-grid { grid-template-columns: 1fr; } }
+.venue-card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
+.venue-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.venue-card__media { aspect-ratio: 16/10; display: block; }
+.venue-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.venue-card__body { padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.venue-card__cap { color: var(--gold-deep); font-weight: 600; font-size: 14px; }
+
+.specs-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 8px 0 40px; padding: 28px; background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); }
+.spec { display: flex; flex-direction: column; gap: 6px; }
+.spec__v { font-family: var(--font-display); font-size: 20px; color: var(--text-primary); }
+@media (max-width: 640px){ .specs-row { grid-template-columns: 1fr 1fr; } }
+
+.chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip { padding: 9px 18px; border-radius: var(--radius-pill); border: 1px solid var(--border-card-2); background: #fff; font-size: 13px; color: var(--text-muted-2); }
+
+.enquiry { display: grid; grid-template-columns: 320px 1fr; gap: 48px; margin-top: 56px; align-items: start; }
+@media (max-width: 860px){ .enquiry { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ============================ Forms ============================ */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-grid__full { grid-column: 1 / -1; }
+.form-grid--card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); padding: 32px; }
+.form-wrap { max-width: 760px; }
+.form-wrap .form-grid { margin-top: 36px; }
+@media (max-width: 560px){ .form-grid { grid-template-columns: 1fr; } }
+
+.success { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 40px 28px; background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); }
+.success__icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(122,138,92,.15); color: var(--gold-deepest); display: grid; place-items: center; }
+.success p { color: var(--text-muted-2); max-width: 46ch; }
+.success__again { margin-top: 6px; background: none; border: 0; color: var(--gold-deep); font-weight: 600; cursor: pointer; text-decoration: underline; }
+
+/* ============================ Corporate ============================ */
+.corp-split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.corp-copy { display: flex; flex-direction: column; gap: 18px; }
+.corp-copy .h2 { margin-top: 4px; }
+.corp-photo img { width: 100%; border-radius: var(--radius); aspect-ratio: 4/3; object-fit: cover; border: 1px solid var(--border-card); }
+@media (max-width: 860px){ .corp-split { grid-template-columns: 1fr; gap: 32px; } }
+
+/* ============================ Restaurant ============================ */
+.offer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+@media (max-width: 767px){ .offer-grid { grid-template-columns: 1fr; } }
+.offer-card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease; }
+.offer-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.offer-card__media { aspect-ratio: 16/10; }
+.offer-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.offer-card__body { padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+
+.hours-card { background: #fff; border: 1px solid var(--border-card); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 96px; }
+.hours { display: flex; flex-direction: column; gap: 12px; }
+.hours li { display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--border-card-2); font-size: 14.5px; }
+.hours strong { font-family: var(--font-display); }
+.hours-card__note { font-size: 13.5px; color: var(--text-muted); }
+@media (max-width: 900px){ .hours-card { position: static; } }
+
+/* ============================ Contact ============================ */
+.contact-split { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; margin-top: 44px; align-items: start; }
+@media (max-width: 860px){ .contact-split { grid-template-columns: 1fr; } }
+.contact-info { display: flex; flex-direction: column; gap: 18px; margin-top: 28px; }
+.contact-info li { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--text-muted-2); }
+.contact-info__ic { width: 38px; height: 38px; flex: none; border-radius: var(--radius); background: rgba(200,162,74,.12); color: var(--gold-deep); display: grid; place-items: center; }
+.contact-info a:hover { color: var(--gold-deep); }
+
+/* ============================ Auth (Login / Register) ============================ */
+.auth { position: relative; min-height: calc(100vh - 76px); display: grid; place-items: center; padding: 48px 24px; overflow: hidden; }
+.auth__card { position: relative; z-index: 2; width: 100%; max-width: 460px; background: var(--bg-cream); border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 70px rgba(15,14,11,.5); }
+.auth__card--wide { max-width: 520px; }
+.auth__header { background: var(--bg-dark); padding: 28px 32px; text-align: center; }
+.auth__welcome { color: var(--text-on-dark-2); font-size: 14px; margin-top: 12px; }
+.auth__body { padding: 32px; display: flex; flex-direction: column; gap: 20px; }
+.auth__form { display: flex; flex-direction: column; gap: 18px; }
+.auth__two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 480px){ .auth__two { grid-template-columns: 1fr; } }
+.auth__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13.5px; }
+.auth__link { color: var(--gold-deep); font-weight: 600; }
+.auth__link:hover { color: var(--gold); }
+.auth__submit { width: 100%; margin-top: 4px; }
+.auth__alt { text-align: center; font-size: 14px; color: var(--text-muted-2); }
+.auth__alt a { color: var(--gold-deep); font-weight: 600; }
+.checkbox { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.checkbox input { width: 16px; height: 16px; accent-color: var(--gold); }
+.checkbox--terms { align-items: flex-start; font-size: 13.5px; color: var(--text-muted-2); }
+.checkbox--terms a { color: var(--gold-deep); font-weight: 600; }
+
+/* ============================ New Custom Sections ============================ */
+
+/* Stay Promise Guarantee Section */
+.stay-promise-section { padding-block: 48px; position: relative; overflow: hidden; }
+.stay-promise__title { font-size: clamp(32px, 5vw, 56px); font-weight: 700; margin-bottom: 24px; text-align: center; }
+.stay-promise__pill { display: inline-block; background: var(--gold); color: var(--bg-dark); font-weight: 800; font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+.stay-promise__icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 960px; margin: 36px auto 0; text-align: center; }
+@media (min-width: 768px) { .stay-promise__icons { grid-template-columns: repeat(8, 1fr); } }
+.stay-promise__icon-item { display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; color: #fff; }
+.stay-promise__icon-circle { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.12); display: grid; place-items: center; color: var(--gold); transition: transform .2s ease, background .2s ease; }
+.stay-promise__icon-item:hover .stay-promise__icon-circle { transform: scale(1.1); background: var(--gold); color: var(--bg-dark); }
+
+/* Our Offerings Grid */
+/* The markup previously carried Tailwind-shaped class names (grid-cols-2,
+   gap-6, mt-8). There is no Tailwind in this project, so they resolved to
+   nothing and every card rendered full-width — a 16/9 image ~1328px across on
+   desktop. That is the "images are too large" note. */
+.offerings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+/* Tablet: two up, media beside copy — the horizontal card is the compact
+   shape at this width. */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .offerings-grid { grid-template-columns: repeat(2, 1fr); }
+  .offering-card { flex-direction: row; align-items: stretch; }
+  .offering-card__media { flex: 0 0 40%; aspect-ratio: auto; }
+}
+/* Desktop: all four in a single row. Two rows of wide cards ran ~780px with
+   the header — a whole viewport for one section. Four narrow cards keep each
+   photo small and bring the band down to roughly a third of that. */
+@media (min-width: 1100px) {
+  .offerings-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.offering-card__eyebrow { display: block; margin-bottom: var(--s-1); color: var(--gold-deep); }
+.offering-card__actions { margin-top: auto; padding-top: var(--s-4); }
+
+/* ---- Experiences by Quadis (change order item 7) ---- */
+.experiences-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+@media (min-width: 900px) {
+  .experiences-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.experience-card {
+  background: var(--surface-dark);
+  border: 1px solid rgba(203,195,178,.10);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.experience-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.experience-card__media { aspect-ratio: 4 / 3; overflow: hidden; }
+.experience-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.experience-card:hover .experience-card__img { transform: scale(1.05); }
+.experience-card__body { padding: var(--s-5); display: flex; flex-direction: column; flex-grow: 1; gap: var(--s-2); }
+.experience-card__title { margin: 0; color: var(--text-on-dark); }
+.experience-card__desc { color: var(--text-on-dark-2); font-size: 14.5px; line-height: 1.6; flex-grow: 1; }
+.experience-card__actions { margin-top: var(--s-4); }
+
+/* ---- Three-tier expansion roadmap (change order item 14) ---- */
+.tier-expansion__lead {
+  text-align: center;
+  max-width: 62ch;
+  margin: var(--s-4) auto 0;
+  color: var(--text-muted-2);
+}
+.tier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+@media (min-width: 900px) {
+  .tier-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.tier-card {
+  background: var(--surface);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.tier-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.tier-card__media { aspect-ratio: 4 / 3; overflow: hidden; }
+.tier-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.tier-card:hover .tier-card__img { transform: scale(1.05); }
+.tier-card__body { padding: var(--s-5); text-align: center; display: flex; flex-direction: column; gap: var(--s-2); }
+.tier-card__title { margin: 0; color: var(--text-primary); }
+.tier-card__desc { color: var(--text-muted-2); font-size: 14.5px; line-height: 1.6; }
+
+.offering-card { background: var(--surface); border: 1px solid var(--border-card); border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease; }
+.offering-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.offering-card__media { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+.offering-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.offering-card:hover .offering-card__img { transform: scale(1.05); }
+.offering-card__badge { position: absolute; top: 14px; right: 14px; background: rgba(15,14,11,.88); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 5px 12px; border-radius: var(--radius-sm); text-transform: uppercase; }
+.offering-card__body { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; gap: 6px; }
+.offering-card__title { margin: 0; font-size: 19px; line-height: 1.25; color: var(--text-primary); }
+/* Clamped so one long blurb can't set the height of every card in the row.
+   The full text stays in the DOM for search and screen readers. */
+.offering-card__desc {
+  color: var(--text-muted-2); font-size: 14px; line-height: 1.55;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Deals Section Cards */
+.deal-card { background: var(--surface); border: 1px solid var(--border-card); border-radius: var(--radius-lg); padding: 28px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform .2s ease, box-shadow .2s ease; }
+.deal-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+
+/* Image corrections to prevent any stretching across grid cards */
+.photo__img, .hero-media, .hcard__media img, .card__media img, .exp-card__media img, .upcoming-card__media img, .offering-card__img {
+  object-fit: cover !important;
+  width: 100%;
+  height: 100%;
+}
+
+/* Deals Section */
+.deals-editorial-layout {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 48px; width: 100%; margin-top: 40px;
+}
+.deals-floating-item {
+  display: flex; flex-direction: column; align-items: center; width: 240px;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+@media (min-width: 1024px) {
+  .deals-floating-item.item-0 { transform: translateY(0px); }
+  .deals-floating-item.item-1 { transform: translateY(40px); }
+  .deals-floating-item.item-2 { transform: translateY(-20px); }
+  .deals-floating-item.item-3 { transform: translateY(60px); }
+  
+  .deals-floating-item.item-0:hover { transform: translateY(-10px); }
+  .deals-floating-item.item-1:hover { transform: translateY(30px); }
+  .deals-floating-item.item-2:hover { transform: translateY(-30px); }
+  .deals-floating-item.item-3:hover { transform: translateY(50px); }
+}
+
+.deals-floating-media {
+  width: 100%; position: relative;
+  background-color: var(--bg-cream); /* Provides local backdrop for mix-blend-mode inside Reveal stacking context */
+}
+.deals-floating-media::after {
+  content: ''; position: absolute; bottom: 10%; left: 15%; right: 15%; height: 20px;
+  background: var(--gold); filter: blur(25px); opacity: 0; transition: opacity 0.6s; z-index: -1;
+}
+.deals-floating-item:hover .deals-floating-media::after { opacity: 0.6; }
+
+.deals-floating-img {
+  width: 100%; height: auto; display: block;
+  mix-blend-mode: multiply; /* Erases white corners against the local cream backdrop! */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.deals-floating-item:hover .deals-floating-img { transform: scale(1.08) rotate(2deg); }
+
+.deals-floating-action {
+  margin-top: 24px; opacity: 0.8; transition: all 0.4s ease; transform: translateY(-10px);
+}
+.deals-floating-item:hover .deals-floating-action {
+  opacity: 1; transform: translateY(0);
+}
+.deals-floating-btn {
+  background: transparent !important; color: #000 !important; border: 1px solid #000 !important;
+  border-radius: var(--radius-pill); padding: 10px 28px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em;
+  transition: all 0.4s ease; cursor: pointer; display: inline-block;
+}
+.deals-floating-btn:hover {
+  background: #000 !important; color: #fff !important; border-color: #000 !important;
+}
+
+/* Section band shared by Offers For You. The "Featured In" press rules that
+   used to live here went with the section itself (client, 27 Jul 2026). */
+.featured-section { background-color: var(--bg-cream); padding: 80px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+
+/* Supplied logos vary in aspect ratio and canvas padding — contain them so each
+   sits on the same optical baseline instead of stretching to the card. */
+.logo-mark { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+
+/* Bank Offers */
+.offers-container { margin-top: 56px; }
+.offers-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+@media (min-width: 768px) { .offers-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.offer-card {
+  background: var(--surface); border-radius: var(--radius-lg); padding: 24px; border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;
+  transition: box-shadow 0.3s ease;
+}
+.offer-card:hover { box-shadow: var(--shadow-md); }
+.offer-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.offer-bank-tag { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--gold-deepest); background: var(--bg-warm); padding: 4px 12px; border-radius: var(--radius-pill); }
+.offer-discount-tag { font-size: 11px; font-weight: 700; color: var(--gold-deep); background: var(--bg-cream); border: 1px solid var(--border-card-2); padding: 4px 10px; border-radius: var(--radius-sm); }
+.offer-details { color: var(--text-primary); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+.offer-validity { color: var(--text-muted-2); font-size: 12px; font-style: italic; margin-bottom: 24px; }
+.offer-footer { display: flex; align-items: center; justify-content: space-between; background: #fafaf9; border: 1px dashed #d6d3d1; border-radius: var(--radius-md); padding: 10px; }
+.offer-code-text { font-family: monospace; font-weight: 700; color: var(--text-dark); letter-spacing: 0.05em; font-size: 14px; padding-left: 8px; }
+.offer-copy-button { background: var(--bg-dark); color: #fff; font-size: 11px; font-weight: 700; padding: 8px 14px; border-radius: var(--radius); cursor: pointer; transition: background 0.2s; border: none; }
+.offer-copy-button:hover { background: #000; }
+/* 35px tall. This one copies a discount code — a miss costs the guest the
+   offer, so it is worth the extra 9px. */
+@media (max-width: 768px){
+  .offer-copy-button { min-height: 44px; }
+}
+
+/* Happy Clients */
+.happy-clients-container { margin-bottom: 56px; text-align: center; }
+.happy-clients-intro { margin-bottom: 40px; }
+
+/* ---- Partner logo marquee (change order item 9) ----
+   Track holds the list twice and translates by exactly -50%, so the loop point
+   is invisible. Masked at both edges so logos fade rather than clip. */
+.logo-marquee {
+  overflow: hidden;
+  margin-top: 32px;
+  -webkit-mask-image: var(--mask-fade-x);
+  mask-image: var(--mask-fade-x);
+}
+.logo-marquee__track {
+  display: flex;
+  gap: var(--s-4);
+  width: max-content;
+  animation: logo-scroll 48s linear infinite;
+}
+.logo-marquee:hover .logo-marquee__track { animation-play-state: paused; }
+.logo-marquee .happy-client-logo-card { flex: 0 0 180px; }
+@keyframes logo-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee { -webkit-mask-image: none; mask-image: none; }
+  .logo-marquee__track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+}
+
+.happy-client-logo-card { display: flex; align-items: center; justify-content: center; padding: 14px 18px; background: #fff; border-radius: var(--radius-md); border: 1px solid rgba(0,0,0,0.08); box-shadow: var(--shadow-sm); height: 72px; transition: all 0.3s; }
+.happy-client-logo-card:hover { box-shadow: var(--shadow-md); }
+
+.guest-experience-banner { background: var(--bg-dark); color: #fff; border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.1); }
+@media (min-width: 768px) { .guest-experience-banner { padding: 40px; } }
+.guest-experience-header { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+@media (min-width: 768px) { .guest-experience-header { flex-direction: row; align-items: center; justify-content: space-between; } }
+.guest-experience-overline { color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.guest-experience-stats { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.05); }
+.stat-rating { color: var(--gold); font-weight: 700; font-size: 14px; }
+.stat-divider { color: rgba(255,255,255,0.3); font-size: 12px; }
+.stat-repeat { color: var(--gold); font-size: 12px; }
+
+.guest-reviews-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px) { .guest-reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+.guest-review-card { background: #fff; color: var(--text-dark); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.guest-review-quote { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-style: italic; margin-bottom: 24px; }
+/* The footer is a name and nothing else since 5 Aug 2026 — the client asked for
+   the per-card star badge and the "Stayed at <hotel>" line to go (item 3), so
+   .guest-review-meta and .guest-review-rating went with them, along with the
+   space-between that only existed to push the badge to the right. */
+.guest-review-footer { border-top: 1px solid var(--border-light); padding-top: 16px; }
+.guest-review-name { font-weight: 700; font-size: 14px; color: var(--text-dark); }
+
+/* ---- Testimonial slider controls (change order item 13) ---- */
+.guest-reviews { position: relative; }
+.guest-reviews__nav { display: flex; justify-content: center; gap: var(--s-3); margin-top: var(--s-5); }
+.guest-reviews__arrow {
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-pill);
+  background: rgba(244,239,228,.10);
+  border: 1px solid rgba(203,195,178,.22);
+  color: var(--text-on-dark);
+  cursor: pointer;
+  transition: background .16s ease, border-color .16s ease, color .16s ease;
+}
+.guest-reviews__arrow:hover { background: var(--gold); border-color: var(--gold); color: var(--bg-dark); }
+.guest-reviews__arrow:focus-visible { outline: none; box-shadow: var(--ring-gold); }
+
+/* Legacy Tailwind Classes mapped to Vanilla CSS for Logos */
+.text-amber-700 { color: var(--gold-deep); }
+.text-red-600 { color: #dc2626; }
+.text-rose-600 { color: #e11d48; }
+.text-red-700 { color: #b91c1c; }
+.text-sky-600 { color: #0284c7; }
+.text-purple-700 { color: #7e22ce; }
+.text-stone-800 { color: #292524; }
+.text-blue-900 { color: #1e3a8a; }
+.text-amber-900 { color: #78350f; }
+
+.font-black { font-weight: 900; }
+.font-extrabold { font-weight: 800; }
+.font-bold { font-weight: 700; }
+.font-sans { font-family: sans-serif; }
+.font-serif { font-family: serif; }
+.font-mono { font-family: monospace; }
+.italic { font-style: italic; }
+.lowercase { text-transform: lowercase; }
+.tracking-tighter { letter-spacing: -0.05em; }
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
+.text-xl { font-size: 20px; }
+.text-2xl { font-size: 24px; }
+.text-lg { font-size: 18px; }
+.text-base { font-size: 16px; }
+
+.text-stone-900 { color: #1c1917; }
+.text-amber-600 { color: #d97706; }
+.text-stone-700 { color: #44403c; }
+.text-pink-600 { color: #db2777; }
+.text-orange-600 { color: #ea580c; }
+.uppercase { text-transform: uppercase; }
+.font-semibold { font-weight: 600; }
+
+/* ============================ Location system ============================ */
+/* Map plate: nothing is requested from Google until the guest asks for it. */
+.map-plate { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border-card); background: var(--bg-warm); }
+.map-plate__frame { width: 100%; height: 100%; border: 0; display: block; }
+.map-plate__facade {
+  width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  background: linear-gradient(160deg, #efeae1 0%, #e6dfd2 100%); color: var(--text-primary); font: inherit;
+}
+/* Suggests a street grid without pretending to be a real map. */
+.map-plate__grid {
+  position: absolute; inset: 0; opacity: .5;
+  background-image:
+    linear-gradient(var(--border-card-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-card-2) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 35%, transparent 78%);
+}
+.map-plate__pin { position: relative; color: var(--gold); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); box-shadow: var(--shadow-md); }
+.map-plate__area { position: relative; font-family: var(--font-display); font-size: 19px; margin-top: 4px; }
+.map-plate__cta { position: relative; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); }
+.map-plate__note { position: relative; font-size: 11.5px; color: var(--text-muted-2); font-style: italic; }
+.map-plate__facade:hover .map-plate__pin { transform: translateY(-2px); }
+
+.loc-split { display: grid; grid-template-columns: 1.35fr 1fr; gap: 32px; align-items: start; margin-top: 16px; }
+@media (max-width: 900px){ .loc-split { grid-template-columns: 1fr; gap: 24px; } }
+
+/* One actions row, same four, same order, on every property. */
+.loc-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.loc-actions__btn {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 10px 16px;
+  border: 1px solid var(--border-card-2); border-radius: var(--radius); background: #fff;
+  font-size: 13.5px; color: var(--text-primary); cursor: pointer; transition: border-color .2s ease, background .2s ease;
+}
+.loc-actions__btn:hover { border-color: var(--gold); background: var(--bg-cream); }
+.loc-actions__btn--primary { background: var(--bg-dark); color: var(--text-on-dark); border-color: var(--bg-dark); }
+.loc-actions__btn--primary:hover { background: #000; color: var(--text-on-dark); }
+.loc-actions__btn svg { width: 16px; height: 16px; }
+
+.getting-here { background: var(--bg-warm); border: 1px solid var(--border-card); border-radius: var(--radius); padding: 24px; }
+.getting-here__title { font-size: 21px; margin: 4px 0 16px; }
+.getting-here__list { display: flex; flex-direction: column; gap: 0; }
+.getting-here__row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--border-card-2); }
+.getting-here__row:last-child { border-bottom: 0; }
+.getting-here__row dt { font-size: 13.5px; color: var(--text-primary); font-weight: 600; }
+.getting-here__note { color: var(--text-muted); font-weight: 400; }
+.getting-here__row dd { font-size: 13px; color: var(--text-muted); text-align: right; margin: 0; white-space: nowrap; }
+
+/* City-level locator — one dark module: numbered list beside the map. */
+.locator { background: var(--bg-dark); color: var(--text-on-dark); }
+.locator__grid { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; margin-top: 20px; }
+@media (max-width: 900px){ .locator__grid { grid-template-columns: 1fr; } }
+
+.locator__list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.locator__row {
+  display: grid; grid-template-columns: 26px 1fr auto; align-items: center; gap: 12px;
+  padding: 10px 12px; border-radius: var(--radius); border: 1px solid transparent;
+  transition: background .18s ease, border-color .18s ease;
+}
+.locator__row:hover, .locator__row.is-active { background: rgba(200,162,74,.10); border-color: rgba(200,162,74,.45); }
+.locator__n {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--gold); color: var(--bg-dark); font-size: 12px; font-weight: 700;
+}
+.locator__meta { display: flex; flex-direction: column; min-width: 0; }
+.locator__name { font-size: 14px; color: var(--text-on-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.locator__area { font-size: 11.5px; color: var(--text-on-dark-2); }
+.locator__price { font-family: var(--font-display); font-size: 15px; color: var(--gold); }
+
+.locator__plate {
+  position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden;
+  background: #14130f; border: 1px solid rgba(203,195,178,.14);
+}
+.locator__grid-lines {
+  position: absolute; inset: 0; opacity: .16;
+  background-image:
+    linear-gradient(rgba(200,162,74,.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,162,74,.5) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.locator__pin { position: absolute; transform: translate(-50%, -50%); }
+.locator__dot {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--gold); color: var(--bg-dark); font-size: 12px; font-weight: 700;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.locator__pin.is-active { z-index: 3; }
+.locator__pin.is-active .locator__dot { transform: scale(1.3); box-shadow: 0 0 0 7px rgba(200,162,74,.22); }
+.locator__tip {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 2px; white-space: nowrap;
+  background: #fff; color: var(--text-primary); padding: 8px 12px; border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md); font-size: 12px; opacity: 0; pointer-events: none; transition: opacity .18s ease;
+}
+.locator__tip strong { font-size: 12.5px; }
+.locator__tip span { color: var(--text-muted); font-size: 11px; }
+.locator__pin.is-active .locator__tip { opacity: 1; }
+.locator__note { margin-top: 18px; font-size: 12.5px; color: var(--text-on-dark-2); }
+
+/* ============================ Account ============================ */
+.account__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 20px 0 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border-card-2); }
+.account__title { margin-bottom: 20px; }
+.account__empty { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding: 40px 32px; background: var(--surface); border: 1px solid var(--border-card); border-radius: var(--radius); }
+
+.account__list { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; }
+.account__booking {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap;
+  padding: 24px; background: var(--surface); border: 1px solid var(--border-card);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+}
+.account__booking-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.account__booking-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.account__amount { font-family: var(--font-display); font-size: 22px; color: var(--text-primary); }
+
+.account__status {
+  align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: var(--radius-pill); margin-bottom: 4px;
+}
+.account__status--confirmed       { background: var(--success-bg); color: var(--success); }
+.account__status--pending_payment { background: var(--warning-bg); color: var(--warning); }
+.account__status--cancelled,
+.account__status--expired         { background: var(--error-bg);   color: var(--error); }
+
+@media (max-width: 560px){
+  .account__booking { flex-direction: column; }
+  .account__booking-side { align-items: flex-start; }
+}

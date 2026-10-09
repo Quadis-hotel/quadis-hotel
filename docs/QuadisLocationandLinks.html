@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#efe7d6; font-family:'Manrope',system-ui,sans-serif; color:#2b2721; -webkit-font-smoothing:antialiased; }
+  a { color:#a07d3d; }
+  a:hover { color:#8a6d2f; }
+  @keyframes pinPulse { 0%{transform:scale(.9);opacity:.55} 70%{transform:scale(2.1);opacity:0} 100%{opacity:0} }
+</style>
+</helmet>
+
+<section style="max-width:1180px; margin:0 auto; padding:64px 40px 24px;">
+  <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">Design fixes · turn 1</span>
+  <h1 style="font-family:'Marcellus',Georgia,serif; font-weight:400; font-size:52px; line-height:1.05; margin:10px 0 12px; color:#211f1b;">Location, maps &amp; links</h1>
+  <p style="max-width:62ch; font-size:17px; line-height:1.7; color:#5a5346; text-wrap:pretty;">The three patterns called out in the audit, built to the Quadis tokens: a static-first map facade with real transit facts, a city locator bound to the property list, and one link policy. Full findings in <em>Quadis-Audit-1.md</em>.</p>
+</section>
+
+<section style="max-width:1180px; margin:0 auto; padding:24px 40px 96px; display:flex; flex-direction:column; gap:72px;">
+
+  <div id="1a" style="background:#f6f1e8; border:1px solid #ece3d3; border-radius:8px; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid #ece3d3;">
+      <span style="font:700 11px 'Manrope'; letter-spacing:.16em; background:#211f1b; color:#f4efe4; padding:5px 9px; border-radius:4px;">1a</span>
+      <span style="font:600 12px 'Manrope'; letter-spacing:.18em; text-transform:uppercase; color:#7a7261;">Hotel detail · Location block</span>
+    </div>
+
+    <div style="padding:36px 28px 40px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:36px; align-items:start;">
+      <div>
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">Location</span>
+        <h2 style="font-family:'Marcellus',Georgia,serif; font-weight:400; font-size:30px; line-height:1.15; margin:8px 0 20px; color:#211f1b;">Hotel Quadis Sector 51</h2>
+
+        <div style="position:relative; border-radius:8px; overflow:hidden; border:1px solid #e6dcca; background:#efe7d6;">
+          <div style="aspect-ratio:16/9; background-color:#e9e0cd; background-image:linear-gradient(#f6f1e8 1.5px, transparent 1.5px), linear-gradient(90deg, #f6f1e8 1.5px, transparent 1.5px), linear-gradient(115deg, transparent 46%, #ded3bd 46%, #ded3bd 54%, transparent 54%), linear-gradient(28deg, transparent 62%, #ded3bd 62%, #ded3bd 68%, transparent 68%); background-size:34px 34px, 34px 34px, 100% 100%, 100% 100%;">
+            <div style="position:absolute; left:47%; top:44%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; background:{{ accent }}; box-shadow:0 0 0 4px rgba(200,162,74,.22), 0 6px 14px rgba(33,31,27,.28);"></div>
+            <div style="position:absolute; left:47%; top:44%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; border:2px solid {{ accent }}; animation:pinPulse 2.6s ease-out infinite;"></div>
+          </div>
+          <sc-if value="{{ mapIdle }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ loadMap }}" style="position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; padding:18px 20px; background:linear-gradient(transparent 45%, rgba(20,19,16,.55)); border:0; cursor:pointer; text-align:left; font:inherit; color:#f4efe4;" style-hover="background:linear-gradient(transparent 35%, rgba(20,19,16,.68))">
+              <span style="font-size:13px; font-weight:600; line-height:1.4;">H-22, Hoshiarpur Village, Sector 51<br><span style="font-weight:400; opacity:.8;">Noida, Uttar Pradesh 201301</span></span>
+              <span style="flex-shrink:0; font:600 11px 'Manrope'; letter-spacing:.14em; text-transform:uppercase; background:rgba(246,241,232,.14); border:1px solid rgba(246,241,232,.45); backdrop-filter:blur(4px); padding:9px 14px; border-radius:4px;">Load interactive map</span>
+            </button>
+          </sc-if>
+          <sc-if value="{{ mapLive }}" hint-placeholder-val="{{ false }}">
+            <iframe src="{{ mapSrc }}" title="Map of Hotel Quadis Sector 51" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="position:absolute; inset:0; width:100%; height:100%; border:0;"></iframe>
+          </sc-if>
+        </div>
+        <p style="margin:10px 0 0; font-size:12px; color:#7a7261;">Static plate renders first — the Google iframe (~700 KB, third-party cookies) mounts only on click, so it never competes with your photography for LCP.</p>
+
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;">
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=28.5822,77.3745" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:8px; background:#211f1b; color:#f4efe4; font:600 12px 'Manrope'; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;" style-hover="background:#141310">
+            Get directions
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button onClick="{{ copyAddr }}" style="display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:8px; background:transparent; border:1px solid #d9cdb6; color:#2b2721; font:600 12px 'Manrope'; letter-spacing:.12em; text-transform:uppercase; cursor:pointer;" style-hover="border-color:#a07d3d; color:#a07d3d">{{ copyLabel }}</button>
+          <a href="tel:+919217373532" style="display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:8px; border:1px solid #d9cdb6; color:#2b2721; font:600 12px 'Manrope'; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;" style-hover="border-color:#a07d3d; color:#a07d3d">Call property</a>
+          <a href="https://wa.me/919217373532" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 18px; border-radius:8px; border:1px solid #d9cdb6; color:#2b2721; font:600 12px 'Manrope'; letter-spacing:.12em; text-transform:uppercase; text-decoration:none;" style-hover="border-color:#a07d3d; color:#a07d3d">WhatsApp</a>
+        </div>
+      </div>
+
+      <sc-if value="{{ showTransit }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#efe7d6; border:1px solid #e6dcca; border-radius:8px; padding:28px;">
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">Getting here</span>
+        <h3 style="font-family:'Marcellus',Georgia,serif; font-weight:400; font-size:22px; margin:8px 0 20px; color:#211f1b;">Four facts a map can't tell you</h3>
+        <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="display:grid; grid-template-columns:1fr auto; gap:16px; align-items:baseline; padding:14px 0; border-top:1px solid #e2d8c6;">
+            <span style="font-size:15px;">Sector 52 Metro <span style="color:#7a7261;">· Blue Line</span></span>
+            <strong style="font:600 14px 'Manrope'; color:#211f1b; white-space:nowrap;">9 min walk</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr auto; gap:16px; align-items:baseline; padding:14px 0; border-top:1px solid #e2d8c6;">
+            <span style="font-size:15px;">IGI Airport T3</span>
+            <strong style="font:600 14px 'Manrope'; color:#211f1b; white-space:nowrap;">38 km · 55 min</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr auto; gap:16px; align-items:baseline; padding:14px 0; border-top:1px solid #e2d8c6;">
+            <span style="font-size:15px;">New Delhi Railway Station</span>
+            <strong style="font:600 14px 'Manrope'; color:#211f1b; white-space:nowrap;">24 km · 45 min</strong>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr auto; gap:16px; align-items:baseline; padding:14px 0; border-top:1px solid #e2d8c6; border-bottom:1px solid #e2d8c6;">
+            <span style="font-size:15px;">Sector 18 Market <span style="color:#7a7261;">· dining &amp; retail</span></span>
+            <strong style="font:600 14px 'Manrope'; color:#211f1b; white-space:nowrap;">6 km · 15 min</strong>
+          </div>
+        </div>
+        <p style="margin:18px 0 0; font-size:13px; line-height:1.6; color:#5a5346;">Store these per property alongside <code style="font-size:12px; background:#f6f1e8; padding:1px 5px; border-radius:3px;">lat</code>, <code style="font-size:12px; background:#f6f1e8; padding:1px 5px; border-radius:3px;">lng</code> and <code style="font-size:12px; background:#f6f1e8; padding:1px 5px; border-radius:3px;">placeId</code> — never geocode a postal string at runtime.</p>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div id="1b" style="background:#1b1a17; color:#f4efe4; border-radius:8px; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid rgba(244,239,228,.12);">
+      <span style="font:700 11px 'Manrope'; letter-spacing:.16em; background:#c8a24a; color:#141310; padding:5px 9px; border-radius:4px;">1b</span>
+      <span style="font:600 12px 'Manrope'; letter-spacing:.18em; text-transform:uppercase; color:#cbc3b2;">Hotels list · One NCR locator, not nine iframes</span>
+    </div>
+
+    <div style="padding:36px 28px 40px; display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:32px; align-items:start;">
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="9">
+          <button onMouseEnter="{{ h.hover }}" onFocus="{{ h.hover }}" onClick="{{ h.hover }}" style="{{ h.rowStyle }}">
+            <span style="{{ h.numStyle }}">{{ h.n }}</span>
+            <span style="display:flex; flex-direction:column; gap:2px; text-align:left;">
+              <span style="font-family:'Marcellus',Georgia,serif; font-size:17px; line-height:1.2;">{{ h.name }}</span>
+              <span style="font-size:12.5px; color:#cbc3b2;">{{ h.sub }}</span>
+            </span>
+            <span style="margin-left:auto; font:600 13px 'Manrope'; color:#c8a24a; white-space:nowrap;">{{ h.price }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="position:relative; border-radius:8px; overflow:hidden; border:1px solid rgba(244,239,228,.14); background-color:#141310; background-image:linear-gradient(rgba(244,239,228,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(244,239,228,.045) 1px, transparent 1px); background-size:40px 40px; aspect-ratio:4/3;">
+        <div style="position:absolute; left:0; right:0; top:38%; height:2px; background:linear-gradient(90deg, transparent, rgba(200,162,74,.28) 20%, rgba(200,162,74,.28) 80%, transparent);"></div>
+        <div style="position:absolute; top:0; bottom:0; left:41%; width:2px; background:linear-gradient(rgba(200,162,74,.22), transparent);"></div>
+        <span style="position:absolute; left:24px; top:20px; font:600 11px 'Manrope'; letter-spacing:.2em; text-transform:uppercase; color:#7a7261;">Delhi NCR · 9 properties</span>
+        <sc-for list="{{ hotels }}" as="h" hint-placeholder-count="9">
+          <button onMouseEnter="{{ h.hover }}" onClick="{{ h.hover }}" aria-label="{{ h.name }}" style="{{ h.pinStyle }}">{{ h.n }}</button>
+        </sc-for>
+        <div style="{{ tipStyle }}">
+          <strong style="display:block; font-family:'Marcellus',Georgia,serif; font-weight:400; font-size:16px; color:#211f1b;">{{ activeName }}</strong>
+          <span style="font-size:12.5px; color:#5a5346;">{{ activeSub }}</span>
+        </div>
+      </div>
+    </div>
+    <p style="margin:0; padding:0 28px 32px; font-size:13px; line-height:1.65; color:#cbc3b2; max-width:78ch;">Pin positions are computed from each property's real lat/lng, so the plate stays honest as inventory grows. Hover or focus a row to lift its pin; a click scrolls the card into view. One map per page — never one inside every card.</p>
+  </div>
+
+  <div id="1c" style="background:#f6f1e8; border:1px solid #ece3d3; border-radius:8px; overflow:hidden;">
+    <div style="display:flex; align-items:center; gap:12px; padding:18px 28px; border-bottom:1px solid #ece3d3;">
+      <span style="font:700 11px 'Manrope'; letter-spacing:.16em; background:#211f1b; color:#f4efe4; padding:5px 9px; border-radius:4px;">1c</span>
+      <span style="font:600 12px 'Manrope'; letter-spacing:.18em; text-transform:uppercase; color:#7a7261;">One link policy</span>
+    </div>
+    <div style="padding:36px 28px 44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:32px;">
+      <div>
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">Inline · in prose</span>
+        <p style="margin:12px 0 0; font-size:16px; line-height:1.8; color:#2b2721; text-wrap:pretty;">Hassle-free stay, else we pay — <a href="#1a" style="color:#a07d3d; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.15em;" style-hover="color:#c8a24a">read the Quadis promise</a>. Today <code style="font-size:13px;">a { color: inherit }</code> is the only rule in <code style="font-size:13px;">global.css</code>, so every prose link is invisible until hover and gets patched with an inline style.</p>
+      </div>
+      <div>
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">External · new tab</span>
+        <p style="margin:12px 0 0; font-size:16px; line-height:1.8;">
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:5px; color:#a07d3d; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.15em;" style-hover="color:#c8a24a">Open in Google Maps<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </p>
+        <p style="margin:10px 0 0; font-size:13px; color:#7a7261; line-height:1.6;">Always <code style="font-size:12px;">rel="noopener noreferrer"</code> plus a visible glyph. <code style="font-size:12px;">tel:</code> and <code style="font-size:12px;">mailto:</code> never open a new tab.</p>
+      </div>
+      <div>
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#a07d3d;">Nav · active state</span>
+        <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:14px;">
+          <span style="padding:9px 14px; font:600 13px 'Manrope'; color:#211f1b; box-shadow:inset 0 -2px 0 0 #c8a24a;">Hotels</span>
+          <span style="padding:9px 14px; font:500 13px 'Manrope'; color:#5a5346;">Banquets</span>
+          <span style="padding:9px 14px; font:500 13px 'Manrope'; color:#5a5346;">Restaurant</span>
+        </div>
+        <p style="margin:14px 0 0; font-size:13px; color:#7a7261; line-height:1.6;">Give the active <code style="font-size:12px;">NavLink</code> a gold underline and <code style="font-size:12px;">aria-current="page"</code>; the current page is currently indistinguishable.</p>
+      </div>
+      <div>
+        <span style="font:600 12px 'Manrope'; letter-spacing:.22em; text-transform:uppercase; color:#b0563c;">Must fix</span>
+        <ul style="margin:12px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; font-size:14.5px; line-height:1.55;">
+          <li style="display:flex; gap:9px;"><span style="color:#b0563c;">→</span><span>Future Vision cards link <code style="font-size:12.5px;">/contact</code>; the route is <code style="font-size:12.5px;">/contactus</code> — both 404.</span></li>
+          <li style="display:flex; gap:9px;"><span style="color:#b0563c;">→</span><span>Four raw <code style="font-size:12.5px;">&lt;a href="/hotels"&gt;</code> in DealsSection force a full reload — use <code style="font-size:12.5px;">Link</code>.</span></li>
+          <li style="display:flex; gap:9px;"><span style="color:#b0563c;">→</span><span>Five footer links (Privacy, Terms, Career, Blog) all resolve to <code style="font-size:12.5px;">/contactus</code>.</span></li>
+          <li style="display:flex; gap:9px;"><span style="color:#b0563c;">→</span><span><code style="font-size:12.5px;">/hotels?city=Upcoming</code> isn't a valid filter — the param is silently dropped.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#c8a24a&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#c8a24a&quot;,&quot;#a8734a&quot;,&quot;#7a8a5c&quot;,&quot;#4a6a7a&quot;],&quot;section&quot;:&quot;Theme&quot;},&quot;showTransit&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Location block&quot;}}">
+const DATA = [
+  { name: 'Hotel Quadis Sector 51', sub: 'Sector 51, Noida', price: '₹1,599', lat: 28.5822, lng: 77.3745 },
+  { name: 'Hotel Quadis Central', sub: 'Sector 27, Noida', price: '₹1,799', lat: 28.5852, lng: 77.3200 },
+  { name: 'Hotel Downtown Sector 15', sub: 'Sector 15, Noida', price: '₹1,599', lat: 28.5843, lng: 77.3095 },
+  { name: 'Hotel Cladis Sector 15', sub: 'Sector 15, Noida', price: '₹1,499', lat: 28.5836, lng: 77.3112 },
+  { name: 'Hotel Cladis Sector 19', sub: 'Sector 19, Noida', price: '₹1,399', lat: 28.5794, lng: 77.3243 },
+  { name: 'Hotel Downtown Sector 51', sub: 'Sector 51, Noida', price: '₹1,699', lat: 28.5810, lng: 77.3730 },
+  { name: 'Hotel Downtown EOK', sub: 'East of Kailash, Delhi', price: '₹1,999', lat: 28.5546, lng: 77.2530 },
+  { name: 'Hotel Amby Inn', sub: 'Lajpat Nagar II, Delhi', price: '₹1,899', lat: 28.5677, lng: 77.2434 },
+  { name: 'Hotel Amar Inn', sub: 'Lajpat Nagar II, Delhi', price: '₹1,799', lat: 28.5670, lng: 77.2420 },
+]
+
+class Component extends DCLogic {
+  state = { active: 0, mapLive: false, copied: false }
+
+  renderVals() {
+    const accent = this.props.accentColor ?? '#c8a24a'
+    const lats = DATA.map(d => d.lat), lngs = DATA.map(d => d.lng)
+    const pad = 0.018
+    const minLat = Math.min(...lats) - pad, maxLat = Math.max(...lats) + pad
+    const minLng = Math.min(...lngs) - pad, maxLng = Math.max(...lngs) + pad
+
+    const hotels = DATA.map((d, i) => {
+      const on = this.state.active === i
+      return {
+        ...d,
+        n: i + 1,
+        hover: () => this.setState({ active: i }),
+        rowStyle: [
+          'display:flex; align-items:center; gap:14px; width:100%; padding:12px 14px; border-radius:8px; cursor:pointer; font:inherit; text-align:left; transition:background .18s ease, border-color .18s ease',
+          'border:1px solid ' + (on ? 'rgba(200,162,74,.55)' : 'rgba(244,239,228,.10)'),
+          'background:' + (on ? 'rgba(200,162,74,.10)' : 'transparent'),
+          'color:#f4efe4',
+        ].join(';'),
+        numStyle: [
+          'flex-shrink:0; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font:700 11px Manrope',
+          'background:' + (on ? accent : 'rgba(244,239,228,.10)'),
+          'color:' + (on ? '#141310' : '#cbc3b2'),
+        ].join(';'),
+        pinStyle: [
+          'position:absolute; transform:translate(-50%,-50%); width:' + (on ? '30px' : '24px') + '; height:' + (on ? '30px' : '24px') + '; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font:700 11px Manrope; transition:all .2s ease',
+          'left:' + (((d.lng - minLng) / (maxLng - minLng)) * 100).toFixed(2) + '%',
+          'top:' + ((1 - (d.lat - minLat) / (maxLat - minLat)) * 100).toFixed(2) + '%',
+          'background:' + (on ? accent : '#2b2721'),
+          'color:' + (on ? '#141310' : '#cbc3b2'),
+          'border:1px solid ' + (on ? accent : 'rgba(200,162,74,.4)'),
+          'box-shadow:' + (on ? '0 8px 20px rgba(0,0,0,.5)' : 'none'),
+          'z-index:' + (on ? 3 : 2),
+        ].join(';'),
+      }
+    })
+
+    const a = DATA[this.state.active]
+    const left = ((a.lng - minLng) / (maxLng - minLng)) * 100
+    const top = (1 - (a.lat - minLat) / (maxLat - minLat)) * 100
+
+    return {
+      accent,
+      hotels,
+      showTransit: this.props.showTransit ?? true,
+      mapIdle: !this.state.mapLive,
+      mapLive: this.state.mapLive,
+      mapSrc: 'https://maps.google.com/maps?q=28.5822,77.3745&z=15&output=embed',
+      loadMap: () => this.setState({ mapLive: true }),
+      copyLabel: this.state.copied ? 'Address copied' : 'Copy address',
+      copyAddr: () => {
+        navigator.clipboard?.writeText('H-22, Hoshiarpur Village, Sector 51, Noida, Uttar Pradesh 201301')
+        this.setState({ copied: true })
+        setTimeout(() => this.setState({ copied: false }), 1800)
+      },
+      activeName: a.name,
+      activeSub: a.sub,
+      tipStyle: [
+        'position:absolute; transform:translate(-50%, -140%); background:#f6f1e8; border:1px solid #e6dcca; border-radius:8px; padding:10px 14px; box-shadow:0 12px 32px rgba(0,0,0,.45); pointer-events:none; white-space:nowrap; z-index:4',
+        'left:' + left.toFixed(2) + '%',
+        'top:' + top.toFixed(2) + '%',
+      ].join(';'),
+    }
+  }
+}
+</script>
+</body>
+</html>

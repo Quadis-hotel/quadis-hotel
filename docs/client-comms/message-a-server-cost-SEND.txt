@@ -1,0 +1,80 @@
+COPY FROM BELOW THE --- LINE ONLY. Everything above it is internal notes and
+must not reach her. (This file used to be described in questions-round-4.txt as
+"no notes, no headers, copy the whole file" — that was wrong and would have
+pasted this block, AGENTS.md references and all, into WhatsApp.)
+
+FOLLOW-UP. The earlier Hostinger-flavoured version has already been sent, with
+Rs 1,500-2,000 in it. This corrects the platform AND the number.
+
+Why the number moved: the box is now t3.medium (4 GiB), not t3.small (2 GiB).
+Sizing reason is in AGENTS.md - Node and Postgres share one instance now, and
+sharp spikes hard on image uploads. Incident 6 was this exact failure on a
+smaller box, so the headroom is deliberate.
+
+Verified off the AWS pricing API, ap-south-1, 30 Jul:
+  t3.medium on-demand  Rs 2,845/mo   + EBS 238 + IPv4 318 + S3 ~150 = ~3,550/mo
+  t3.medium 1-yr RI    Rs 1,675/mo   + same                        = ~2,380/mo
+  (1-yr All Upfront is $231 vs $392 on-demand - 41% off)
+
+Quote her 3,000-3,500, with the yearly-commit option named. Do NOT quote 2,380
+as the headline - that requires Rs 20,097 on her card up front and a 1-year
+lock, which is its own decision and not one to smuggle into a number.
+
+REWRITTEN 31 Jul, and the change is not cosmetic. The previous version closed
+with "bata dijiye 3,500 theek hai, phir main server laga kar kaam shuru kar
+deta hoon". Both halves are now false:
+
+  - She has ALREADY agreed to ~3,550 (AGENTS.md 4a), and her account was
+    upgraded to the Paid plan on the strength of that. Re-asking reopens a
+    settled price with someone who asked for "sabse kam price".
+  - The server is BUILT AND RUNNING (AGENTS.md 3b). Saying work will start
+    once she confirms is simply not true any more.
+
+  ...BUT her agreement is flagged in 4a as relayed in-session, not read off a
+  message thread. So this version does not re-ask, and does not claim she
+  said yes either. It states the number as what we have gone ahead on and
+  leaves one closed question at the end. If she objects, that surfaces it
+  without having pretended.
+
+THE CREDIT IS THE POINT OF SENDING THIS. She has $99.47 of AWS credit that
+SURVIVED the plan upgrade - roughly 8,500 rupees, about 2.4 months of the bill,
+already paid for. It expires whether or not she uses it, and she has not been
+told. This used to be a hand-edit instruction in README.md, which is how it
+would have been forgotten - it is now in the message text itself.
+
+Do NOT mention DNS, the hosting panel or go-live here. One topic per message -
+she answers the last item and skips the rest (round 1, and again 29 Jul).
+
+The card question is still owed - AGENTS.md 4a. Deliberately not in this
+message either.
+
+---
+
+Server ka update de deta hoon.
+
+Server ready hai - AWS pe, Mumbai region me, jaisa aapne kaha tha. Website,
+database, photos, sab us par chal raha hai aur test ho chuka hai.
+
+Kharche ka ek number theek karna hai jo maine pehle bataya tha. Maine
+1,500-2,000 bola tha, par wo chhote server ka hisab tha. Us size pe website aur
+database dono ek saath atak jaate - photo upload karte waqt sabse zyada. Pehle
+ek baar ye ho chuka hai, isliye us par risk nahi liya.
+
+Sahi kharcha *lagbhag 3,500 mahina* hai. Isme server, database, roz ka backup
+aur photos sab aa jate hain. AWS mahine ka bill bhejta hai, jitna use ho utna -
+koi lock-in nahi hai.
+
+*Ek achhi khabar bhi hai.* Aapke AWS account me pehle se *lagbhag 8,500 rupaye
+ka credit* pada hai. Usse kareeb *2.5 mahine ka bill apne aap cover ho jayega* -
+alag se kuch nahi karna, bill me se khud kat jata hai. Par ye credit January
+tak hi chalega, uske baad khatam ho jata hai. Isliye abhi use ho jaye wahi
+theek hai.
+
+Aage chahein to saal bhar ka ek saath commit karke yahi cheez *lagbhag 2,400
+mahina* pe aa sakti hai, par usme kareeb 20,000 ek saath dene padte hain aur
+saal bhar ke liye tay ho jata hai. Meri salaah - abhi rehne dete hain. Pehle
+1-2 mahina chal kar dekh lete hain, credit bhi is beech use ho jayega, phir
+decide kar lenge.
+
+Aap bas confirm kar dijiye ki *3,500 mahina theek hai*, taaki main aage ka
+plan usi hisab se rakhun.

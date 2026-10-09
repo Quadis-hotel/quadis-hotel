@@ -1,0 +1,192 @@
+Round 2. They answered most of round 1 in
+client-assets/briefs/2026-07-27-SENSITIVE-answers-and-logins.txt
+
+Send MESSAGE 5 on its own, first. Then 6. Then 7 and 8 together.
+
+Do not send all four at once — last time the long list came back with half the
+answers, and the ones that got skipped were the ones that block launch.
+
+
+=============================================================
+MESSAGE 5 - send this one first, on its own
+=============================================================
+
+Ek zaroori baat. Aapne GoDaddy aur Razorpay ka password WhatsApp pe bheja hai.
+WhatsApp pe password chat mein permanently save reh jaata hai, aur jiske paas
+bhi phone jaaye usko sab mil jaata hai.
+
+Razorpay se paisa nikalta hai aur GoDaddy se poori website kisi aur jagah point
+ho sakti hai. To please dono ke password abhi change kar dijiye aur 2-factor
+authentication (OTP wala) on kar dijiye.
+
+Mujhe password chahiye hi nahi. Razorpay mein "Team" option hota hai, waha se
+aap mujhe member add kar dijiye - mujhe utna hi access milega jitna kaam ke
+liye chahiye, aur aap jab chaaho hata sakte ho. GoDaddy mein bhi delegate
+access ka option hai.
+
+Aage se koi bhi password mat bhejiye, chahe kisi ko bhi. Main bina password ke
+kaam kar lunga.
+
+
+=============================================================
+MESSAGE 6 - pricing, this one is blocking
+=============================================================
+
+Pehle ye clear kar dun ki main kaunse do documents ki baat kar raha hoon,
+kyunki aapne dono bheje the aur dono mein rate alag hain
+
+  (A) "RATE SHEET" — wo table wali photo, upar yellow patti mein S.NO,
+      HOTEL NAME, ROOM CATEGORY, RATE likha hai. Noida ke 6 hotel (total 125)
+      aur Delhi ke 3 hotel (total 72), niche "Over All Key 197" aur
+      "FOR DOUBLE OCCUPANCY, EXTRA ADULT 500, CHILD 250"
+
+  (B) "TEXT LIST" — wo message jisme pehle MakeMyTrip ke 9 link the, aur uske
+      niche "Pricing [Base rate for double occupancy deluxe room]" ke saath
+      Amar Inn 3000, Downtown Eok 3000, Downtown 51 2500... aise likha tha
+
+Abhi maine (A) rate sheet wale rate lagaye hain. Neeche jaha "rate sheet" ya
+"text list" likha hai, wo inhi do ko keh raha hoon.
+
+Ab sirf ek cheez baaki hai — teesre person ka charge. Iske baare mein teen
+jagah teen alag baat likhi hai, isliye seedha example se pooch raha hoon.
+Bas ye 2 answer kar dijiye
+
+1. 2,000 wala deluxe room hai, do log the, ab teesra adult aa gaya.
+   Us raat ka total kitna charge hoga?
+   (30% wala rule maane to 2,600. Rate sheet pe likha "EXTRA ADULT 500"
+    maane to 2,500)
+
+   Aapne kaha tha "Excel ki pricing ke hisab se chalo" — usme rate aur room
+   count to clear ho gaya, par teesre person wali line ke baare mein confirm
+   nahi hai. Isliye ye ek baar aur pooch raha hoon. Abhi 30% laga rakha hai
+
+2. Wahi room, teesra bacha hai bade ke bajay. Total kitna?
+   Kya bache ka bhi charge lagta hai ya free?
+   Aur agar charge hai to kis umar se?
+
+(Room counts aur rate sheet wali baat aapne 27 Jul 3:55 pm ko clear kar di
+thi — Quadis Central 11 deluxe + 6 super, Quadis 51 25 deluxe + 3 super, aur
+"Excel ki pricing ke hisab se chalo". Wo sab laga diya hai, ab total 197 keys
+bilkul aapke sheet se match kar raha hai. Bas upar wale 2 sawaal baaki hain.)
+
+Rate sheet wale rate laga diye hain, jaisa aapne kaha.
+
+
+=============================================================
+MESSAGE 7 - ye pichli baar reh gaya tha
+=============================================================
+
+Aapke 3:04 pm ke message se 3 cheez clear ho gayi - mail Gmail pe hai, AWS ke
+liye sabse sasta option lagana hai, aur registered address mil gaya (bill pe
+lag gaya hai). Ab sirf 2 cheez pending hain
+
+1. theserverindia.com ka panel login - aapne kaha purane designer se maanga
+   hai. Mil gaya kya? Jab tak wo nahi milta, website switch nahi kar sakte
+
+   Ek zaroori baat: aapka domain GoDaddy pe hai, par uske nameserver
+   theserverindia pe point kar rahe hain. Matlab email ki settings (MX record)
+   bhi wahi rakhi hui hain, GoDaddy pe nahi. Isliye us panel ka login chahiye -
+   usse hum sirf website ka record badlenge aur email ko chhuenge hi nahi.
+   Aapka mail Google pe hai, wo bilkul safe rahega
+
+2. AWS - "sabse kam price" ka matlab main ye samajh raha hoon ki chhote se
+   chhota setup lagayein aur traffic badhne pe bada karein. Theek hai?
+   Uska matlab shuru mein mahine ka lagbhag 1,500-2,500 aayega, 3-8 hazaar
+   nahi. Confirm kar dijiye to main wahi laga dunga
+
+
+=============================================================
+MESSAGE 8 - PMS. Aap revenue sir se baat karne wale ho, to ye
+             saath le jaana
+=============================================================
+
+Aapne kaha PMS walo se baat karni padegi aur revenue sir se confirm karna hai
+ki ye kaise hota hai. Bilkul sahi. Us baat-cheet mein ye 4 cheez pooch lijiye,
+inhi se decide hoga ki kitna kaam hai.
+
+1. Sabse pehle ye - "Book Now" button dabane ke baad guest kahan jaayega?
+
+   Do bilkul alag raaste hain
+
+   (a) Guest hamari hi website pe rukta hai, wahi payment karta hai, bill bhi
+       hamara. PMS sirf background mein availability bhejta hai
+
+   (b) Guest ko PMS ke apne booking page pe bhej diya jaata hai, payment wahin
+       hota hai
+
+   Ye sabse important sawaal hai. (b) chuna to hamari jo booking screen,
+   payment aur GST invoice ka kaam ho chuka hai wo istemaal hi nahi hoga.
+   Isliye ye pehle decide karna hai, baad mein nahi
+
+2. PMS ka naam kya hai? (eZee, Hotelogix, Djubo, Staah, RateGain, ya koi aur)
+
+3. Unke plan mein API access hai ya nahi? Kai vendor iska alag paisa lete hain,
+   aur kuch ke paas API hota hi nahi. Ye seedha unse pooch lijiye
+
+4. MakeMyTrip aur Goibibo pe bhi aapke hotel hain. Sirf PMS se OTA ka inventory
+   sync nahi hota, uske liye channel manager lagta hai. Aapke paas hai?
+
+Ek baat aur, revenue sir ko bata dijiyega. Agar rate aur availability PMS se
+aayenge to fir admin panel se rate change nahi kar payenge. Do jagah rate set
+karoge to dono alag ho jaayenge, aur wahi se double booking hoti hai. Control
+ek hi jagah rakhna padega.
+
+Photos aur website ka content admin panel se hi change hoga, wo alag cheez hai,
+usme koi dikkat nahi.
+
+Aur ek suggestion - PMS ka kaam website live karne se pehle mat rokiye. Filhaal
+website ko apna alag room quota de dete hain (jaise Cladis 15 ke 31 mein se 5).
+Utne room sirf website bechegi, MMT pe wo honge hi nahi, to double booking ho
+hi nahi sakti. Ye abhi ho sakta hai, koi naya kaam nahi. PMS baad mein aaram se
+jod denge.
+
+
+=============================================================
+YOUR OWN NOTES - do not send
+=============================================================
+
+Why message 5 goes alone: bundled with work questions it reads as a footnote
+and gets skipped. It is the only one with money attached.
+
+Why message 6 asks for a worked example instead of "which rule is correct":
+they have now given three different answers to the same question (40%, flat
+500, 30%). Asking them to price one room settles it in one line and cannot be
+answered ambiguously.
+
+Do not act on the PMS answer immediately. Get the vendor name, then read that
+vendor's API docs before quoting any timeline. Several Indian PMS vendors
+charge extra for API access or have no public API at all.
+
+The redirect question in message 8 is the one that actually matters. They said
+"iski internal linking hogi booking vale button se", which can mean either an
+API sync behind our own checkout, or the Book Now button simply pointing at the
+PMS vendor's hosted booking engine. The second is what a lot of Indian hotels
+this size actually do, because the vendor gives it free with the PMS.
+
+If they go that way, everything below stops being used:
+  - CheckoutModal and the whole booking flow
+  - RazorpayService, payments routes, webhooks
+  - InvoiceService and the GST invoice
+  - bookings, room_night_holds, the soft-hold engine
+  - the bookings half of the admin panel
+
+That is a large part of the backend. Get this answered before any more work
+goes into booking or payments - including before fixing the invoice GSTIN,
+which is pointless if the PMS issues the invoice.
+
+It also changes the Razorpay conversation. If the PMS collects payment, they
+may not need their own gateway at all.
+
+Recommendation if they push to launch soon: do not block go-live on the PMS.
+Give the website its own room allotment (say 5 of Cladis 15's 31) so it
+physically cannot oversell against MakeMyTrip. Works today with the existing
+total_units field, zero new code. Integrate properly as phase two.
+
+Still open on the build side, unchanged from round 1:
+- API not reachable in production
+- DATABASE_URL, SESSION_SECRET, ADMIN_PASSWORD, ADMIN_PIN not set on any host
+- Razorpay still on test keys
+- No Postgres seeding path - a real database starts empty
+- Image upload pipeline not built, admin cannot change photos
+- Invoice PDF still prints a placeholder company name and fake GSTIN
+- No SEO, one page title across all routes, no sitemap

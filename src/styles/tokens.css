@@ -1,0 +1,104 @@
+/* ============================================================
+   Quadis design tokens — §2 of the build spec.
+   --gold is the single retheme knob. Approved alternates only:
+   #a8734a (terracotta), #7a8a5c (olive), #4a6a7a (slate blue).
+   No hex values are allowed anywhere outside this file.
+   ============================================================ */
+:root {
+  /* Color */
+  --bg-cream:      #f6f1e8;
+  --bg-warm:       #efe7d6;
+  --bg-dark:       #1b1a17;
+  --bg-darkest:    #141310;
+  --text-primary:  #211f1b;
+  --text-body:     #2b2721;
+  --text-muted:    #7a7261;
+  --text-muted-2:  #5a5346;
+  --text-on-dark:  #f4efe4;
+  --text-on-dark-2:#cbc3b2;
+  --gold:          #c8a24a;
+  --gold-deep:     #a07d3d;
+  --gold-deepest:  #8a6d2f;
+  --border-card:   #ece3d3;
+  --border-card-2: #e6dcca;
+  --input-bg:      #fbf8f1;
+  --input-border:  #e2d8c6;
+
+  /* Aliases & overlays for component styling */
+  --dark:          #1b1a17;
+  --dark-70:       rgba(27, 26, 23, 0.75);
+  --dark-10:       rgba(27, 26, 23, 0.08);
+  --gold-dark:     #a07d3d;
+
+  /* Derived / utility (still spec colors) */
+  --scrim: linear-gradient(rgba(20,19,16,.35), rgba(20,19,16,.65));
+  /* The home hero plays video, not a still. The global scrim washed it to near
+     black; this keeps the footage full-colour while the text-shadow on
+     .home-hero__content carries legibility. */
+  --scrim-hero: linear-gradient(rgba(20,19,16,.10), rgba(20,19,16,.40));
+  --whatsapp: #25d366;
+
+  /* Semantic states. Success uses the approved olive alternate rather than a
+     stock green, so a confirmed booking still reads as Quadis. */
+  --error:      #b0563c;
+  --error-bg:   rgba(176,86,60,.08);
+  --success:    #5c7048;
+  --success-bg: rgba(122,138,92,.14);
+  --warning:    #a07d3d;
+  --warning-bg: rgba(200,162,74,.14);
+
+  /* Type families */
+  --font-display: 'Marcellus', Georgia, serif;
+  --font-script:  'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Manrope', system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale: 4,8,12,16,24,32,48,64,96,120 */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 120px;
+
+  --maxw: 1440px;
+  --pad-x: 56px;
+
+  /* Radius scale. Cards sit at --radius; anything larger reads as a different
+     product. --radius-pill is for chips and filter pills only. */
+  --radius-sm:   4px;
+  --radius:      8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-pill: 999px;
+
+  /* Elevation. Warm-tinted rather than neutral grey, so shadows sit in the
+     cream palette instead of greying it. */
+  --shadow-sm:    0 2px 8px rgba(33,31,27,.06);
+  --shadow-md:    0 12px 32px rgba(33,31,27,.10);
+  --shadow-lg:    0 24px 48px rgba(20,19,16,.18);
+  --shadow-card:  var(--shadow-md);
+  --shadow-bar:   var(--shadow-lg);
+  --ring-gold:    0 0 0 3px rgba(200,162,74,.25);
+  /* The client's "Glow" swatch — a gold halo for focus/hover only. Used
+     sparingly; on everything it reads as a template. "Drop" maps to the
+     --shadow-* scale above. */
+  --glow-gold:    0 0 0 1px rgba(200,162,74,.35), 0 8px 28px rgba(200,162,74,.18);
+  /* Alpha stencil for edge-fading a horizontally scrolling strip. Not a
+     palette colour — the black is opacity, not paint. */
+  --mask-fade-x: linear-gradient(90deg, transparent, rgba(0,0,0,1) 8%, rgba(0,0,0,1) 92%, transparent);
+
+  /* Surfaces — the white a card sits on, and its dark-band counterpart. */
+  --surface:       #ffffff;
+  --surface-dark:  #232119;
+
+  /* Aliases used across components. Kept here so there is still exactly one
+     place that defines a colour. */
+  --primary:      var(--gold-deep);
+  --text-dark:    var(--text-primary);
+  --border-light: #f0e9db;
+  --font-sans:    var(--font-body);
+
+  /* Link policy — see .prose a in global.css. */
+  --link:       var(--gold-deep);
+  --link-hover: var(--gold);
+}
+
+@media (max-width: 768px) {
+  :root { --pad-x: 24px; }
+}

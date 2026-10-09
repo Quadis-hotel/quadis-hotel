@@ -1,0 +1,268 @@
+/* ============================ Header / nav (§3) ============================ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(27,26,23,.92); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(203,195,178,.10);
+  color: var(--text-on-dark);
+}
+.home-hero { position: relative; min-height: 560px; height: clamp(560px, 72vh, 660px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.home-hero__content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 18px; max-width: 900px; }
+.home-hero__title { max-width: 16ch; }
+.home-hero__title .script { font-size: inherit; }
+.home-hero__bar { position: relative; z-index: 3; }
+
+/* Hero carrying only the search bar: park the bar in the lower third of the
+   video rather than dead-centre, so the frame still reads as a video and the
+   bar clears the bottom edge. Anchoring from the bottom keeps that gap fixed
+   while the hero itself flexes between 560px and 660px. */
+.home-hero--bar-only { justify-content: flex-end; padding-bottom: clamp(48px, 8vh, 88px); }
+
+.nav__inner { height: 76px; display: flex; align-items: center; gap: var(--s-6); }
+
+/* Official wordmark. The asset README sets a hard 96px minimum width for the
+   horizontal mark — below that the letterspaced HOTELS row closes up — and
+   requires clear space equal to the HOTELS cap height on all four sides. */
+.wordmark { display: inline-flex; align-items: center; line-height: 1; padding: 6px; }
+.wordmark__img { display: block; width: auto; height: 40px; min-width: 96px; }
+.wordmark--footer { margin-bottom: 20px; }
+.wordmark--footer .wordmark__img { height: 44px; }
+.wordmark--auth .wordmark__img { height: 42px; }
+@media (max-width: 560px) {
+  .wordmark__img { height: 34px; }
+}
+
+.nav__center { flex: 1; display: flex; justify-content: center; }
+.nav__list { display: flex; align-items: center; gap: 4px; }
+.nav__item { position: relative; }
+.nav__link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-body); font-weight: 500; font-size: 14px;
+  color: var(--text-on-dark-2); padding: 10px 12px; border: 0; background: none; cursor: pointer;
+  transition: color .16s ease;
+}
+.nav__link:hover { color: var(--gold); }
+.nav__link.active { color: var(--text-on-dark); }
+.nav__link.active::after {
+  content: ''; position: absolute; left: 12px; right: 12px; bottom: 2px;
+  height: 2px; background: var(--gold); border-radius: 2px;
+}
+.nav__toggle { text-transform: none; letter-spacing: 0; }
+.nav__chev { transition: transform .18s ease; }
+.nav__chev.is-open { transform: rotate(180deg); }
+
+.dropdown {
+  position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(6px);
+  min-width: 230px; background: var(--surface-dark); border: 1px solid rgba(203,195,178,.12);
+  border-radius: var(--radius); box-shadow: 0 12px 32px rgba(0,0,0,.45); padding: 8px;
+  opacity: 0; visibility: hidden; transition: opacity .16s ease, transform .16s ease; z-index: 60;
+}
+.dropdown.is-open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.dropdown__item {
+  display: block; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 14px;
+  color: var(--text-on-dark-2); white-space: nowrap; transition: background .14s ease, color .14s ease;
+}
+.dropdown__item:hover { background: rgba(200,162,74,.12); color: var(--gold); }
+
+.nav__right { display: flex; align-items: center; gap: 12px; }
+.nav__register, .nav__login { padding: 11px 20px; font-size: 12.5px; }
+.nav__register { color: var(--text-on-dark-2); border-color: var(--text-on-dark-2); }
+.nav__register:hover { color: var(--gold); border-color: var(--gold); }
+
+.nav__burger { display: none; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; position: relative; }
+.nav__burger span, .nav__burger span::before, .nav__burger span::after {
+  content: ''; position: absolute; left: 10px; right: 10px; height: 2px; background: var(--text-on-dark); transition: transform .2s ease, opacity .2s ease;
+}
+.nav__burger span { top: 21px; }
+.nav__burger span::before { top: -7px; }
+.nav__burger span::after { top: 7px; }
+.nav__burger span.is-x { background: transparent; }
+.nav__burger span.is-x::before { transform: translateY(7px) rotate(45deg); }
+.nav__burger span.is-x::after { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer */
+.drawer {
+  position: fixed; top: 76px; right: 0; width: min(380px, 88vw); height: calc(100dvh - 76px);
+  background: var(--bg-dark); border-left: 1px solid rgba(203,195,178,.12);
+  transform: translateX(100%); transition: transform .24s ease; z-index: 70;
+  padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;
+}
+.drawer.is-open { transform: translateX(0); }
+.drawer__list { display: flex; flex-direction: column; }
+.drawer__link {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 15px 4px; font-size: 16px; color: var(--text-on-dark); background: none; border: 0;
+  border-bottom: 1px solid rgba(203,195,178,.10); cursor: pointer; text-align: left;
+}
+.drawer__toggle { font-family: var(--font-body); }
+.drawer__sub { padding: 4px 0 10px 12px; display: flex; flex-direction: column; }
+.drawer__sublink { display: block; padding: 10px 4px; font-size: 14px; color: var(--text-on-dark-2); }
+.drawer__sublink:hover { color: var(--gold); }
+.drawer__actions { display: flex; gap: 12px; margin-top: auto; }
+.drawer__actions .btn { flex: 1; }
+.drawer__scrim { position: fixed; inset: 76px 0 0 0; background: rgba(20,19,16,.5); border: 0; z-index: 65; }
+
+/* Drawer is a mobile-only affordance — keep it out of the DOM box on desktop. */
+@media (min-width: 1081px){
+  .drawer, .drawer__scrim { display: none; }
+}
+@media (max-width: 1080px){
+  .nav__center, .nav__right { display: none; }
+  .nav__burger { display: block; margin-left: auto; }
+}
+
+/* ============================ Footer (§3) ============================ */
+.footer { padding-bottom: 40px; }
+.footer__inner { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.4fr; gap: 48px; padding-top: 96px; }
+.footer__blurb { color: var(--text-on-dark-2); font-size: 14.5px; line-height: 1.7; max-width: 320px; }
+.footer__head { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: .18em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+.footer__links { display: flex; flex-direction: column; gap: 12px; }
+.footer__links a, .footer__addr { color: var(--text-on-dark-2); font-size: 14.5px; transition: color .16s ease; display: inline-flex; align-items: flex-start; gap: 10px; }
+.footer__links a:hover { color: var(--gold); }
+.footer__contact svg { flex: none; margin-top: 2px; color: var(--gold); }
+.footer__addr { align-items: flex-start; line-height: 1.5; }
+.footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 56px; padding-top: 28px; border-top: 1px solid rgba(203,195,178,.12); }
+.footer__social { display: flex; gap: 16px; }
+.footer__social a { color: var(--text-on-dark-2); transition: color .16s ease; }
+.footer__social a:hover { color: var(--gold); }
+.footer__copy { color: var(--text-muted); font-size: 13px; }
+@media (max-width: 900px){ .footer__inner { grid-template-columns: 1fr 1fr; gap: 40px; } }
+@media (max-width: 560px){ .footer__inner { grid-template-columns: 1fr; } .footer__bottom { flex-direction: column; align-items: flex-start; } }
+
+/* Touch targets. Measured on a 375px viewport: the footer nav links were 25px
+   tall and the five social icons were 20x20 — the smallest tappable things on
+   the site, on every single page, and both well under the 44px floor the
+   stepper buttons and the tel:/mailto: rule already observe.
+
+   The row gap goes to 0 on the nav lists at the same time, so the taller links
+   cost ~7px of pitch each rather than ~19px: the height now does the separating
+   that the gap used to. .footer__contact keeps its gap because the address is
+   an <li>, not an <a>, so it gains no height here and would otherwise butt
+   straight up against the email link. */
+@media (max-width: 768px){
+  .footer__links:not(.footer__contact) { gap: 0; }
+  .footer__links a { min-height: 44px; align-items: center; }
+  /* The box grows 20px -> 44px around an icon that stays 20px, so the row is
+     pulled back by half the growth to keep the first icon flush with the
+     container edge it used to line up with. */
+  .footer__social { gap: 4px; margin-left: -12px; }
+  .footer__social a { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+}
+
+/* ============================ WhatsApp FAB (§3) ============================ */
+.wa-fab {
+  position: fixed; right: 24px; bottom: 24px; z-index: 80;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--whatsapp); color: #fff;
+  display: grid; place-items: center; box-shadow: 0 8px 24px rgba(37,211,102,.4);
+  transition: transform .16s ease;
+}
+.wa-fab:hover { transform: scale(1.06); }
+
+/* ============================ Booking bar (§4) ============================ */
+.bbar {
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-lg);
+  /* Six cells: destination, check-in, check-out, adults, children, search.
+     Splitting the old single "Guests" stepper into Adults and Children added a
+     sixth — with five columns the search button wrapped to a row of its own. */
+  display: grid; grid-template-columns: 1.5fr 1.1fr 1.1fr .7fr .7fr auto;
+  gap: 14px; padding: 20px 24px;
+  align-items: end;
+  transition: box-shadow .2s ease;
+}
+/* "Glow" from the client's highlight note — on focus only, so the bar lifts
+   while it is being used rather than shouting at rest. */
+.bbar:focus-within { box-shadow: var(--shadow-lg), var(--glow-gold); }
+
+/* Deep enough that the bar genuinely overlaps the bottom of the video, as in
+   the previous layout. -52px left it sitting on the cream band below. */
+.bbar--overlap { margin-top: -112px; position: relative; z-index: 5; }
+@media (max-width: 900px) { .bbar--overlap { margin-top: -72px; } }
+@media (max-width: 640px) { .bbar--overlap { margin-top: -40px; } }
+.bbar__field { display: flex; flex-direction: column; gap: 7px; }
+.bbar__label { font-weight: 600; font-size: 12px; letter-spacing: .04em; color: var(--text-muted); }
+.bbar__input {
+  background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--radius-sm);
+  padding: 13px 14px; font-size: 15px; color: var(--text-body); width: 100%;
+}
+.bbar__input:focus { outline: none; border-color: var(--gold); box-shadow: var(--ring-gold); }
+.stepper { display: flex; align-items: center; justify-content: space-between; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--radius-sm); padding: 6px 8px; }
+.stepper button { width: 34px; height: 34px; border-radius: var(--radius-sm); border: 1px solid var(--border-card-2); background: #fff; font-size: 18px; cursor: pointer; color: var(--text-body); }
+.stepper button:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-deep); }
+.stepper button:disabled { opacity: .4; cursor: not-allowed; }
+.stepper__val { font-weight: 600; font-size: 15px; min-width: 24px; text-align: center; }
+.bbar__search { height: 52px; padding: 0 28px; border: 0; border-radius: var(--radius-sm); background: var(--bg-dark); color: var(--text-on-dark); cursor: pointer; display: grid; place-items: center; font-family: var(--font-body); font-weight: 600; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: background .16s ease, color .16s ease; }
+.bbar__search:hover { background: var(--gold); color: var(--bg-dark); }
+.bbar__hint { font-weight: 400; color: var(--text-muted-2); letter-spacing: 0; }
+
+/* Tablet: six cells in a row squeezes the date inputs below their own text.
+   Three columns, with destination and the search button spanning the width. */
+@media (max-width: 1180px) and (min-width: 901px){
+  .bbar { grid-template-columns: repeat(3, 1fr); }
+  .bbar__dest { grid-column: 1 / -1; }
+  .bbar__search { grid-column: 1 / -1; width: 100%; }
+}
+
+@media (max-width: 900px){
+  .bbar { grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; }
+  /* Overlap depth lives with the .bbar--overlap rules above — a second value
+     here silently won on width, which is why the bar never met the video. */
+
+  /*
+     Dates first on mobile.
+
+     Source order is desktop order — Destination, then the dates — which on a
+     narrow screen put a full-width select above the two fields the guest
+     actually came to fill in, pushing Check-in and Check-out down the page.
+     That is the client's complaint. Reordering here rather than in the JSX
+     keeps the desktop row and the DOM/tab order sensible.
+
+     The generic .bbar__field rule must come first: the date and destination
+     fields carry both classes at equal specificity, so source order decides.
+
+     min-width: 0 is what stops the bar running off the side of the phone
+     (client, 5 Aug 2026, item 5 — "Check Out", "Children 0–17 yrs" and
+     "SEARCH STAYS" all clipped mid-word). A 1fr track is minmax(auto, 1fr) and
+     `auto` refuses to go below the item's min-content width; a native
+     input[type=date] reports ~150px of that for its dd/mm/yyyy spinners and
+     calendar button, so two date cells plus the gap and the bar's padding
+     demanded more than a 360px viewport has, and the surplus pushed the whole
+     card sideways. Releasing the automatic minimum lets the tracks divide the
+     width they actually have. */
+  .bbar__field { order: 4; min-width: 0; }
+  .bbar__input { min-width: 0; }
+  .bbar__date--in  { order: 1; }
+  .bbar__date--out { order: 2; }
+  .bbar__dest      { order: 3; grid-column: 1 / -1; }
+  .bbar__search    { order: 5; grid-column: 1 / -1; width: 100%; height: 48px; }
+}
+
+@media (max-width: 640px){
+  /* iOS zooms any input under 16px on focus, which leaves the page scrolled
+     sideways and the bar half off-screen. So the font size is fixed and the
+     side padding is what gives: a date cell is ~134px wide on a 360px phone and
+     "mm/dd/yyyy" plus the calendar button needs about 112px of it, which 12px
+     of padding a side does not leave. 8px does, and the last character of the
+     date stops being cut off. */
+  .bbar__input { font-size: 16px; padding: 12px 8px; }
+  .bbar__search { height: 52px; }
+  /* 44px minimum touch target — 34px was below the accessible floor. */
+  .stepper button { width: 44px; height: 44px; }
+}
+
+/* ============================ Testimonials (§4) ============================ */
+.tcard { position: relative; overflow: hidden; border-radius: var(--radius); min-height: 420px; display: flex; background: linear-gradient(160deg, var(--bg-dark), var(--bg-darkest)); }
+.tcard__media { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.tcard::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(20,19,16,.45), rgba(20,19,16,.72)); }
+.tcard__frame { position: relative; z-index: 2; margin: 16px; border: 1px solid rgba(244,239,228,.5); border-radius: var(--radius-sm); flex: 1; display: grid; place-items: center; padding: 40px; }
+.tcard__inner { max-width: 620px; text-align: center; color: var(--text-on-dark); }
+.tcard__eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 20px; }
+.tcard__eyebrow .script { font-size: 34px; color: var(--text-on-dark); }
+.tcard__label { font-family: var(--font-display); letter-spacing: .28em; font-size: 13px; color: var(--gold); }
+.tcard__quote { font-size: 18px; line-height: 1.7; font-style: italic; color: var(--text-on-dark); }
+.tcard__stars { display: flex; justify-content: center; gap: 4px; color: var(--gold); margin: 22px 0 14px; }
+.tcard__name { font-family: var(--font-body); font-weight: 700; font-size: 16px; }
+.tcard__role { font-size: 13px; color: var(--text-on-dark-2); margin-top: 2px; }
+.tcard__nav { position: absolute; z-index: 3; inset: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; pointer-events: none; }
+.tcard__arrow { pointer-events: auto; width: 48px; height: 48px; border-radius: 50%; background: rgba(27,26,23,.72); border: 1px solid rgba(203,195,178,.28); color: var(--text-on-dark); display: grid; place-items: center; cursor: pointer; transition: background .16s ease; }
+.tcard__arrow:hover { background: var(--gold); color: var(--bg-dark); }
+@media (max-width: 560px){ .tcard__frame { padding: 28px 16px; } .tcard__quote { font-size: 16px; } }

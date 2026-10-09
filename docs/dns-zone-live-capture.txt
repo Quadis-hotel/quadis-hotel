@@ -1,0 +1,84 @@
+quadishotels.com — COMPLETE zone as served by theserverindia
+Captured from public DNS 31 Jul 2026. Every line below was resolved, not copied
+from an earlier doc. Zone serial at capture: 2026072302.
+
+WHY THIS FILE EXISTS
+--------------------
+AGENTS.md rule 2 says never touch DNS, because the zone carries her Google MX
+and the nameservers are at the old web host. That rule assumes we do not know
+what is in the zone. This file is what we know — captured so that IF the
+nameservers ever have to move (see PLAN B in the cutover notes), the zone can
+be recreated exactly rather than guessed.
+
+docs/aws-account-migration.md lists MX, SPF and the two Google TXT records. It
+does NOT list DKIM or DMARC, and it claims DKIM "will not show from outside".
+That is wrong — the default selector resolves fine and its full key is below.
+DMARC is p=quarantine, so a missing DKIM record does not bounce: her mail keeps
+delivering, into spam, silently. That is the failure this file prevents.
+
+ONLY ONE DKIM SELECTOR EXISTS. Probed: default, google, k1, s1, s2, selector1,
+selector2, mail, dkim. Only `default` answers.
+
+WHAT MOVES AT CUTOVER, AND WHAT MUST NOT
+----------------------------------------
+MOVES:      apex A  →  13.234.85.127   (the Elastic IP)
+            www stays a CNAME to the apex, so it follows automatically.
+STAYS:      every other record below, unchanged. All seven remaining
+            subdomains keep pointing at 115.124.108.190 — the old host still
+            serves adminweb (her live booking admin), blog (WordPress), mail
+            and webmail. Repointing or dropping any of them breaks something
+            she is still using.
+NEVER:      MX, SPF, DKIM, DMARC. Her email is Google Workspace and none of it
+            has anything to do with the website.
+
+------------------------------------------------------------------
+NS      quadishotels.com.   yellow1.theserverindia.com.
+NS      quadishotels.com.   yellow2.theserverindia.com.
+SOA     primary yellow1.theserverindia.com.  contact websolvo5@gmail.com
+        serial 2026072302  refresh 10800  retry 3600  expire 1209600  min 10800
+
+A       quadishotels.com.           115.124.108.190     <-- ONLY THIS CHANGES
+CNAME   www.quadishotels.com.       quadishotels.com.
+CNAME   ftp.quadishotels.com.       quadishotels.com.
+
+A       adminweb.quadishotels.com.  115.124.108.190
+A       booking.quadishotels.com.   115.124.108.190
+A       mail.quadishotels.com.      115.124.108.190
+A       webmail.quadishotels.com.   115.124.108.190
+A       blog.quadishotels.com.      115.124.108.190
+A       api.quadishotels.com.       115.124.108.190
+
+MX      quadishotels.com.   1 smtp.google.com.
+
+TXT     quadishotels.com.
+        "google-site-verification=tx0Bc_a9v1k8qT6UHjQ716HZvDHpLwFt5VFYZjA0u3Y"
+TXT     quadishotels.com.
+        "google-site-verification=c8NaV2tMxsnJt69f5Wto3bILWNlsYcz1NMDpUcewLP4"
+TXT     quadishotels.com.
+        "v=spf1 a mx include:websitewelcome.com include:_spf.google.com include:Yellow.theserverindia.com ~all"
+
+TXT     _dmarc.quadishotels.com.
+        "v=DMARC1; p=quarantine; adkim=r; aspf=r"
+
+TXT     default._domainkey.quadishotels.com.
+        "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7tzf9ujsnZZ6uOVRtx9xhwgSEelph7HDLD4atIO6DOHbv1fqG8ANr8kECRRlNJIh3W2YWGwMJB3qi0/U0ki5ZAq0ssODz8WZxG2G1PWnpA7ZUAo5lzRiKc4M9hDrU5tYOzUBUoeUEJxx86NN9NkkbwCOgElClE7BlwOQNK0/A4rQP3u0cbYcskuyi1XzgeDVY" "2tIibrSTKHW4h8OEfW6NlNDTnWPF4zEgy+AzDOLXm9Yj1j5N5e7MSqMYHT0CV9cn/3mcoRQUQ6B74nfMDhGKF5HmRLtAXfJlHaB3PfYHIg2VBGsBzOpVcOAmHK4vBWb+xBZNHSZvk8EX0"
+
+        NOTE: that record is TWO quoted strings in one TXT RR — DNS strings cap
+        at 255 bytes and the key is longer. It must be recreated as a single
+        record containing both chunks, concatenated with NO separator. Most
+        panels accept the whole thing pasted with the quotes; some want it as
+        one continuous string with the quotes removed. Verify after entry with:
+            dig +short TXT default._domainkey.quadishotels.com
+        and diff against this file before considering the move done.
+------------------------------------------------------------------
+
+SPF NOTE. Keep `include:Yellow.theserverindia.com` even after moving off that
+host — it is their domain, it will keep resolving, and removing an include is
+how an SPF record starts failing for mail paths nobody remembered.
+
+VERIFY AFTER ANY ZONE CHANGE, before calling it done:
+    dig +short MX quadishotels.com                    -> 1 smtp.google.com.
+    dig +short TXT _dmarc.quadishotels.com            -> p=quarantine
+    dig +short TXT default._domainkey.quadishotels.com | wc -c   -> ~420
+    dig +short A adminweb.quadishotels.com            -> 115.124.108.190
+    dig +short A quadishotels.com                     -> 13.234.85.127

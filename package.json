@@ -1,0 +1,29 @@
+{
+  "name": "quadis-hotels",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Quadis Hotels \u2014 premium-but-approachable frontend (Delhi NCR)",
+  "scripts": {
+    "dev": "vite",
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "prebuild": "npm run sitemap",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "dev:all": "./scripts/dev.sh",
+    "dev:api": "./scripts/dev.sh api"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.1.5"
+  }
+}

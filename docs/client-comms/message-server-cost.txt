@@ -1,0 +1,80 @@
+AgentName : Div1
+Date      : 07-29-2026
+
+
+*** SUPERSEDED 30 Jul 2026 -- DO NOT SEND THE TEXT IN THIS FILE. ***
+
+    Send docs/client-comms/message-a-server-cost-SEND.txt instead.
+
+    Two things changed, and BOTH are in the message body below, so sending
+    this file sends the wrong price:
+
+    1. The number. This file says Rs 1,500-2,000/mo. That was priced on
+       t3.small (2 GiB). The box is t3.medium (4 GiB) -- Node and Postgres
+       now share one instance and sharp spikes on image upload, which is
+       incident 6's exact failure. True figure is ~Rs 3,550/mo on-demand,
+       ~Rs 2,380 with a 1-year commitment. Quote 3,000-3,500. See AGENTS.md
+       4a: she has been told 1,500-2,000 TWICE, so the correction has to be
+       explicit, not quietly restated.
+    2. The platform. This file was written for a Hostinger VPS. We are on
+       AWS, in her own account -- which is also what she asked for by name.
+       "No lock-in" is true on AWS on-demand; it was false on the Hostinger
+       plan, whose own page says all plans are paid upfront.
+
+    Tone note: no "Ma'am". She is informal and the formal register reads
+    wrong coming from us. The SEND file is already written that way.
+
+    This file is kept for the reasoning trail only.
+
+---
+
+Draft 29 Jul 2026. The client asked about server cost twice on 29 Jul and has
+not been answered. This is the reply.
+
+Send it on its own. Her replies show she answers the last item and skips the
+rest, so the other pending questions (two Razorpay accounts, the regenerated
+key, Amby Inn room names) go in a SEPARATE message afterwards.
+
+The number below -- Rs 1,500-2,000 a month for a 4 GB VPS in India -- is the
+SUPERSEDED figure. See the banner above.
+
+---
+
+Server ka kharcha bata deta hoon.
+
+*Abhi kya hai*
+
+Aapki current website theserverindia pe hai. Wo shared hosting hai -- simple
+website ke liye theek hai, lekin usme online booking system nahi chal sakta.
+Uske liye alag se database chahiye, aur wo shared hosting support nahi karti.
+
+*Naya server*
+
+Naya server India me hi rahega (Mumbai/Bangalore), taaki website guests ke liye
+fast khule.
+
+Kharcha: *Rs 1,500-2,000 per month* (lagbhag Rs 18,000-24,000 saal ka).
+Monthly billing hai, koi lock-in nahi -- jab chahein band kar sakte hain.
+
+Isme ye sab aa jayega:
+- Online booking + payment system (Razorpay)
+- Database -- bookings, guests, rates sab store honge
+- HTTPS security lock
+- Saari photos aur pages
+- Roz ka automatic backup
+
+*Zaroori baat -- aapka email safe rahega*
+
+info@quadishotels.com Google pe chalta hai, aur usko hum bilkul touch nahi
+karenge. Sirf website ka address naye server pe point karenge. Email jaise chal
+raha hai waise hi chalta rahega.
+
+*Aur purani website?*
+
+Wo tab tak chalti rahegi jab tak nayi website puri tarah test na ho jaye. Pehle
+naya server ready karenge, sab check karenge, phir switch karenge. 2-3 hafte
+purani hosting bhi chalne denge -- safety ke liye.
+
+*Sirf ek cheez confirm kar dijiye:* Rs 1,500-2,000 per month theek hai?
+
+Aapka haan aate hi main server le kar kaam shuru kar dunga.
