@@ -66,7 +66,7 @@ export const DEFAULT_CONTENT: Record<string, ContentField> = {
     label: 'About blurb',
     multiline: true,
     value:
-      'Quadis Services Private Limited is one of the leading hospitality brands in Delhi NCR, offering premium hotel stays, elegant banquet halls, and quality restaurant services.',
+      'Quadis Services Private Limited is one of the leading hospitality brands in delhi NCR, offering premium hotel stays, elegant banquet halls, and quality restaurant services.',
   },
   // 11:00 AM, not the 2:00 PM this shipped with: the client corrected it on
   // 5 Aug 2026. Check-in and check-out are deliberately the same hour — the
