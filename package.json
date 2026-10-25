@@ -3,7 +3,7 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "description": "Quadis Hotels \u2014 premium-but-approachable frontend (Delhi NCR)",
+  "description": "Quadis Hotels — premium-but-approachable frontend (Delhi NCR)",
   "scripts": {
     "dev": "vite",
     "sitemap": "node scripts/generate-sitemap.mjs",
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^6.1.2",
     "typescript": "^5.9.3",
     "vite": "^8.1.5"
   }
